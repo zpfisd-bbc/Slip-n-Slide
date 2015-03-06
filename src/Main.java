@@ -13,4 +13,8 @@ public class Main extends JPanel {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
+	
+	LineGenerator line = new LineGenerator();	
+	
 }
