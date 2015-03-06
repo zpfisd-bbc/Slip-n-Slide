@@ -30,4 +30,35 @@ public class LineGenerator extends Main {
 			x1 += 250;
 		}
 	}
+	
+	public static void randomZahl()  {
+		int l1 = 0;
+		int l2 = 0;
+		int l3 = 100; //Länge vom Abstand, bleibt gleich
+		Random randomZahl = new Random();
+		int low = 1;
+		int high = 5;
+		int r; //die Zufallszahl
+		
+		while (playerDead != true) { //prüft ob der Spieler bereits tot ist
+			r = randomZahl.nextInt(high-low)+low;//wählt eine Zufallszahl zwischen 1 bis 5
+			
+			if (r == 1) {
+				l1 = 0;
+				l2 = 400;
+			} else if (r == 2) {
+				l1 = 100;
+				l2 = 300;
+			} else if (r == 3) {
+				l1 = 200;
+				l2 = 200;
+			} else if (r == 4) {
+				l1 = 300;
+				l2 = 100;
+			} else {
+				l1 = 400;
+				l2 = 0;
+			}
+		}
+	}
 }
