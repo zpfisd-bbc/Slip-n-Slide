@@ -8,9 +8,9 @@ public class LineGenerator extends Main {
 	/**
 	 * 
 	 */
-	private static final long serialVerzionUID = 3059159587358238294L;
-
-	int x1 = 100;
+	private static final long serialVersionUID = -6341584220832550407L;
+	
+	int y1 = 100;
 	int l1 = 0;
 	int l2 = 0;
 	int l3 = 100;
@@ -26,7 +26,7 @@ public class LineGenerator extends Main {
 			Random r = new Random();
 			int Low = 100;
 			int High = 200;
-			int R = r.nextInt(High - Low) + Low;
+			r.nextInt(High - Low);
 			
 			Random randomZahl = new Random();
 			int low = 1;
@@ -51,22 +51,20 @@ public class LineGenerator extends Main {
 				l1 = 400;
 				l2 = 0;
 			}
-
+			
 			g1d.setColor(Color.blue);
-			g1d.fillRect(0, x1, R, 15);
-			g1d.drawRect(0, x1, R, 15);
-			x1 = x1 + 80;
+			g1d.fillRect(0, y1, l1, 15);
+			g1d.drawRect(0, y1, l1, 15);
 
 			g2d.setColor(Color.red);
-			g2d.fillRect(0, x1, 10, 15);
-			g2d.drawRect(0, x1, 10, 15);
-			x1 = x1 + 80;
+			g2d.fillRect(l1, y1, l3, 15);
+			g2d.drawRect(l1, y1, l3, 15);
 
 			g3d.setColor(Color.blue);
-			g3d.fillRect(0, x1, R, 15);
-			g3d.drawRect(0, x1, R, 15);
-			x1 = x1 + 80;
-
+			g3d.fillRect(l3 + l1, y1, l2, 15);
+			g3d.drawRect(l3 + l1, y1, l2, 15);
+			
+			y1 += 250;
 		}
 	}
 }
