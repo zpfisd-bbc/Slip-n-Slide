@@ -12,7 +12,7 @@ public class Main extends JPanel  {
 		JFrame frame = new JFrame("Slip 'n' Slide");
 		
 		frame.add(new Main());
-		frame.setSize(1920, 1050);
+		frame.setSize(580, 900);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}	
