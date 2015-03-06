@@ -5,36 +5,31 @@ import java.util.Random;
 
 public class LineGenerator extends Main {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6341584220832550407L;
-	
-	int y1 = 100;
-	int l1 = 0;
-	int l2 = 0;
-	int l3 = 100;
+	private static final long serialVersionUID = -6509408290457265056L;
+
+	int y1 = 230; //Länge von Abstand zwischen Linien
+	int l1 = 0; //Länge von linie 1
+	int l2 = 0; //Länge von line 2
+	int l3 = 100; //Länge von Abstand
+	int lastZahl = 0; //Speichert die letzte Zahl von ZufallsZahl
 
 	// Generates Random Lines
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g1d = (Graphics2D) g;
-		Graphics2D g2d = (Graphics2D) g;
 		Graphics2D g3d = (Graphics2D) g;
 
-		for (int i = 1; i < 10; i++) {
-			Random r = new Random();
-			int Low = 100;
-			int High = 200;
-			r.nextInt(High - Low);
+		for (int i = 1; i < 10; i++) { //Testschlaufe, mit playerDead != true
+			
+			int rz; //Die Zufallszahl
 			
 			Random randomZahl = new Random();
-			int low = 1;
-			int high = 5;
-			int rz; // die Zufallszahl
-			rz = randomZahl.nextInt(high - low) + low;// wählt eine Zufallszahl
-														// zwischen 1 - 5
+			rz = randomZahl.nextInt(6 - 1) + 1; // wählt eine Zufallszahl zwischen 1 - 5
 
+			while (rz == lastZahl) { //Überprüft dass keine Lücke zweimal vorkommt
+				rz = randomZahl.nextInt(6 - 1) + 1; // wählt eine Zufallszahl zwischen 1 - 5
+			}
+			
 			if (rz == 1) {
 				l1 = 0;
 				l2 = 400;
@@ -47,24 +42,24 @@ public class LineGenerator extends Main {
 			} else if (rz == 4) {
 				l1 = 300;
 				l2 = 100;
-			} else {
+			} else if (rz == 5) {
 				l1 = 400;
 				l2 = 0;
 			}
 			
+			//Line 1
 			g1d.setColor(Color.blue);
 			g1d.fillRect(0, y1, l1, 15);
 			g1d.drawRect(0, y1, l1, 15);
 
-			g2d.setColor(Color.red);
-			g2d.fillRect(l1, y1, l3, 15);
-			g2d.drawRect(l1, y1, l3, 15);
-
+			//Line 2
 			g3d.setColor(Color.blue);
 			g3d.fillRect(l3 + l1, y1, l2, 15);
 			g3d.drawRect(l3 + l1, y1, l2, 15);
 			
-			y1 += 250;
+			y1 += 250; //Grösse von Abstand zwischen der kompletten Linien
+			lastZahl = rz; //Speichert die letzte Zufallszahl
 		}
+
 	}
 }
