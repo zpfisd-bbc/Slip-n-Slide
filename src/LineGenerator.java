@@ -17,6 +17,7 @@ public class LineGenerator extends Main {
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g1d = (Graphics2D) g;
+		Graphics2D border = (Graphics2D) g;
 		Graphics2D g3d = (Graphics2D) g;
 
 		for (int i = 1; i < 10; i++) { //Testschlaufe, mit playerDead != true
@@ -48,17 +49,35 @@ public class LineGenerator extends Main {
 			}
 			
 			//Line 1
-			g1d.setColor(Color.blue);
-			g1d.fillRect(0, y1, l1, 15);
-			g1d.drawRect(0, y1, l1, 15);
+			g1d.setColor(Color.LIGHT_GRAY);
+			g1d.fillRect(10, y1, l1, 15);
+			g1d.drawRect(10, y1, l1, 15);
+
+			g1d.setColor(Color.GRAY); //Schatteneffekt für Line 1
+			g1d.fillRect(10, y1 + 8, l1, (int) 7.5);
+			g1d.drawRect(10, y1 + 8, l1, (int) 7.5);
 
 			//Line 2
-			g3d.setColor(Color.blue);
+			g3d.setColor(Color.LIGHT_GRAY);
 			g3d.fillRect(l3 + l1, y1, l2, 15);
 			g3d.drawRect(l3 + l1, y1, l2, 15);
 			
-			y1 += 250; //Grösse von Abstand zwischen der kompletten Linien
+			g3d.setColor(Color.GRAY); //Schatteneffekt für Line 2
+			g3d.fillRect(l3 + l1, y1 + 8, l2, (int) 7.5);
+			g3d.drawRect(l3 + l1, y1 + 8, l2, (int) 7.5);
+			
+			y1 += 250; //Erhöht Grösse von Abstand zwischen der kompletten Linien
 			lastZahl = rz; //Speichert die letzte Zufallszahl
+			
+			//Border links
+			border.setColor(Color.LIGHT_GRAY);
+			border.fillRect(0, 0, 10, 1080);
+			border.drawRect(0, 0, 10, 1080);
+			
+			//Border rechts
+			border.setColor(Color.LIGHT_GRAY);
+			border.fillRect(500, 0, 10, 1080);
+			border.drawRect(500, 0, 10, 1080);
 		}
 
 	}

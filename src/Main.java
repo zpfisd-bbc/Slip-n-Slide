@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
@@ -10,11 +11,11 @@ public class Main extends JPanel  {
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Slip 'n' Slide");
-		
 		frame.add(new Main());
-		frame.setSize(500, 900);
+		frame.setSize(527, 900);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBackground(Color.BLACK);
 	}	
 	
 	public void paint(Graphics g) {
