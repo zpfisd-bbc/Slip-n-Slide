@@ -79,6 +79,5 @@ public class LineGenerator extends Main {
 			border.fillRect(500, 0, 10, 1080);
 			border.drawRect(500, 0, 10, 1080);
 		}
-
 	}
 }
