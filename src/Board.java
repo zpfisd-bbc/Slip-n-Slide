@@ -16,7 +16,7 @@ public class Board extends JPanel implements ActionListener {
 	private boolean ingame = true;
 	private Player player;
 	private Timer timer;
-	private LineGenerator lg;
+	private LineGenerator lg = new LineGenerator();
 
 	// Serial ID
 	private static final long serialVersionUID = 4648172894076113183L;
@@ -30,11 +30,12 @@ public class Board extends JPanel implements ActionListener {
 
         player = new Player();
 
-        timer = new Timer(5, this);
+        timer = new Timer(5, this); //5ms
         timer.start();
     }
 
     public void paint(Graphics g) {
+    
         super.paint(g);
 
         Graphics2D g2d = (Graphics2D)g;
@@ -44,7 +45,12 @@ public class Board extends JPanel implements ActionListener {
         g.dispose();
     }
     
-    public void actionPerformed(ActionEvent e) {
+    public void GenerateLine(Graphics g) {
+    	LineGenerator lg = new LineGenerator();
+    	lg.paint(g);
+    }
+    
+    public void actionPerformed(ActionEvent e) { //Funktion wird alle 5ms aufgerufen
         player.move();
         repaint();  
     }

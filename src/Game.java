@@ -1,5 +1,3 @@
-import java.awt.Graphics;
-
 import javax.swing.JFrame;
 
 
@@ -10,11 +8,6 @@ public class Game extends JFrame{
 
 	private static final long serialVersionUID = -7803629994015778818L;
 
-	public void paint(Graphics g) {
-		LineGenerator l = new LineGenerator();
-		l.paint(g);
-	}
-	
 	public Game() {
 		add(new Board());
 		setSize(517, 1000); // Breite und Länge von Fenster
@@ -22,10 +15,9 @@ public class Game extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 	}
-
+	
 	public static void main(String[] args) {
 		new Game();
-		paint(g);
 	}
 	
 	//Getters and setters
