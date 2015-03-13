@@ -14,17 +14,20 @@ public class Player {
 	private String pfad;
 	private int dx = 0;
 	private int dy = 0;
+	private int playerSpeed = 4;
+	private int playerSpeedDown = 1;
+	private boolean playerDead; //TODO
 
 
 	public Player() {
-		this.setPfad("Triangle.png"); //Setzt den Pfad für den Sprite
+		this.setPfad("Sprite2.png"); //Setzt den Pfad für den Sprite
         ImageIcon ii = new ImageIcon(this.getClass().getResource(pfad));
 		this.setImage(ii.getImage()); //Wandelt ImageIcon in Image um
 	}
 	
 	public void move() {
         x += dx;
-        y += dy;
+        y += dy + playerSpeedDown;
     }
 	
 	public void keyPressed(KeyEvent e) {
@@ -32,11 +35,11 @@ public class Player {
 		int key = e.getKeyCode();
 
 		if (key == KeyEvent.VK_LEFT) {
-			dx = -3;
+			dx = -(playerSpeed); //Geschwindigkeit nach Links
 		}
 
 		if (key == KeyEvent.VK_RIGHT) {
-			dx = 3;
+			dx = playerSpeed; //Geschwindigkeit nach rechts
 		}
 
 	}
@@ -44,8 +47,9 @@ public class Player {
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 
+		//Wenn losgelassen wird, wird die Geschwindigkeit auf 0 gesetzt
 		if (key == KeyEvent.VK_LEFT) {
-			dx = 0;
+			dx = 0; 
 		}
 
 		if (key == KeyEvent.VK_RIGHT) {
@@ -58,6 +62,7 @@ public class Player {
 		this.setY(500);
 	}
 
+	//Settermethoden
 	public int getX() {
 		return x;
 	}
@@ -104,6 +109,12 @@ public class Player {
 
 	public void setDy(int dy) {
 		this.dy = dy;
+	}
+	public int getPlayerSpeed() {
+		return playerSpeed;
+	}
+	public void setPlayerSpeed(int playerSpeed) {
+		this.playerSpeed = playerSpeed;
 	}
 
 }

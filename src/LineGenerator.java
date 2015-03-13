@@ -28,6 +28,7 @@ public class LineGenerator {
 				rz = randomZahl.nextInt(6 - 1) + 1; // wählt eine Zufallszahl zwischen 1 - 5
 			}
 
+			//Wählt aus welche Länge die Linien haben, aufgrund der Randomzahl
 			if (rz == 1) {
 				l1 = 0;
 				l2 = 400;
