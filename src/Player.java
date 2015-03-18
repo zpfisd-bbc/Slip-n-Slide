@@ -16,7 +16,7 @@ public class Player {
 	private int dy = 0;
 	private int playerSpeed = 4;
 	private int playerSpeedDown = 1;
-	private boolean playerDead; //TODO
+//	private boolean playerDead; //TODO
 
 
 	public Player() {

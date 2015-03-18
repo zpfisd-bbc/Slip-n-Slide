@@ -16,8 +16,8 @@ public class Board extends JPanel implements ActionListener {
 	private boolean ingame = true;
 	private Player player;
 	private Timer timer;
-	private LineGenerator lg = new LineGenerator();
-
+	private LineGenerator lg;
+	
 	// Serial ID
 	private static final long serialVersionUID = 4648172894076113183L;
 	
@@ -25,29 +25,30 @@ public class Board extends JPanel implements ActionListener {
 
         addKeyListener(new TAdapter());
         setFocusable(true);
-        setBackground(Color.BLACK);
+        setBackground(Color.WHITE);
         setDoubleBuffered(true);
 
         player = new Player();
+        lg = new LineGenerator();
 
         timer = new Timer(5, this); //5ms
         timer.start();
     }
 
     public void paint(Graphics g) {
-    
+    	
+    	super.paint(g);
+
+
+    	
+		//Zeichnet den Spieler
         super.paint(g);
 
-        Graphics2D g2d = (Graphics2D)g;
-        g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+        Graphics2D gP = (Graphics2D) g;
+        gP.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
-    }
-    
-    public void GenerateLine(Graphics g) {
-    	LineGenerator lg = new LineGenerator();
-    	lg.paint(g);
     }
     
     public void actionPerformed(ActionEvent e) { //Funktion wird alle 5ms aufgerufen
@@ -80,6 +81,8 @@ public class Board extends JPanel implements ActionListener {
 		return ingame;
 	}
 
+	
+	//Getter und Setter
 	public void setIngame(boolean ingame) {
 		this.ingame = ingame;
 	}
