@@ -47,14 +47,12 @@ public class Board extends JFrame {
 
 	public static void main(String[] args) {
 		Board b = new Board(); // Fügt alle Methoden aus Board() hinzu
-		
-
 	}
 
 	public void play(Graphics g) {
 		
 		try {
-			Thread.sleep(10); // Setzt die ms in der die Funtkion aufgerufen
+			Thread.sleep(1000); // Setzt die ms in der die Funtkion aufgerufen
 								// wird
 		} catch (InterruptedException e) {
 		}

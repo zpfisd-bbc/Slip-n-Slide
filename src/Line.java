@@ -10,20 +10,18 @@ import java.util.Random;
 
 public class Line {
 	private final static int ABSTAND_LAENGE = 100; // Verändert sich nicht
-	private static int zufallsZahl = 0;
+	private int zufallsZahl = 0;
 	private static int lastZahl = 0;
 
 	private int längeLn1 = 0;
 	private int längeLn2 = 0;
-	private int linienAbstand = 30; // Verändert sich nicht, abstand zwischen
-									// ganzen Linien
+	private int linienAbstand = 30; //abstand zwischen ganzen Linien
 
 	public Line(Graphics g2, int abstand) {
 		zufallsZahl = this.randomZahl(6);
 		linienAbstand = abstand;
 
-		while (zufallsZahl == lastZahl) { // Überprüft dass keine Lücke
-											// zweimal vorkommt
+		while (zufallsZahl == lastZahl) { // Überprüft dass keine Lücke zweimal vorkommt
 			zufallsZahl = this.randomZahl(6);
 		}
 
@@ -91,11 +89,11 @@ public class Line {
 
 		if (linienAbstand >= 1000) {
 			linienAbstand = 150;
-			this.randomZahl(6);
+			this.randomZahl(5);
 
 			while (zufallsZahl == lastZahl) { // Überprüft dass keine Lücke
 												// zweimal vorkommt
-				this.randomZahl(6);
+				this.randomZahl(5);
 			}
 
 			// Setzt die Linienlängen
