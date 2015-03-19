@@ -15,10 +15,14 @@ public class LineGenerator {
 	private int längeLn1 = 0;
 	private int längeLn2 = 0;
 	private int abstandLänge = 100; // Verändert sich nicht
-	private int linienAbstand = 150; // Verändert sich nicht, abstand zwischen ganzen Linien
+	private int linienAbstand = 30; // Verändert sich nicht, abstand zwischen
+									// ganzen Linien
 	private int lastZahl = 0; // Speichert die letzte Zufallszahl
 	private int zufallsZahl = 0;
-	ArrayList<Integer> zufallsZahlen = new ArrayList<Integer>(); //Speichert alle Zufallszahlen
+	ArrayList<Integer> zufallsZahlen = new ArrayList<Integer>(); // Speichert
+																	// alle
+																	// Zufallszahlen
+
 	// private int scrollSpeed = 0;
 
 	// wählt eine Zufallszahl zwischen 1 - 5
@@ -30,75 +34,80 @@ public class LineGenerator {
 	// Zeichnet die Linien
 	public void paint(Graphics g2) {
 		this.randomZahl(6);
-		while (zufallsZahl == lastZahl) { // Überprüft dass keine Lücke zweimal vorkommt
-			this.randomZahl(6);
+		for (int i = 1; i < 6; i++) {
+			while (zufallsZahl == lastZahl) { // Überprüft dass keine Lücke
+												// zweimal vorkommt
+				this.randomZahl(6);
+			}
+
+			// Wählt die Länge der Linien aus aufgrund von der zufallsZahl
+			switch (zufallsZahl) {
+			case 1:
+				this.setLängeLn1(0);
+				this.setLängeLn2(400);
+				break;
+			case 2:
+				this.setLängeLn1(100);
+				this.setLängeLn2(300);
+				break;
+			case 3:
+				this.setLängeLn1(200);
+				this.setLängeLn2(300);
+				break;
+			case 4:
+				this.setLängeLn1(300);
+				this.setLängeLn2(100);
+				break;
+			case 5:
+				this.setLängeLn1(400);
+				this.setLängeLn2(0);
+				break;
+			}
+
+			// Fügt die letzte Zufallszahl in die Liste hinzu
+			zufallsZahlen.add(this.getZufallsZahl());
+
+			// Linie 1 Left
+			g2.setColor(Color.GRAY);
+			g2.drawRect(10, linienAbstand, längeLn1, 15);
+			g2.fillRect(10, linienAbstand, längeLn1, 15);
+
+			g2.setColor(Color.LIGHT_GRAY); // Schatteneffekt
+			g2.drawRect(10, linienAbstand, längeLn1, (int) 7.5);
+			g2.fillRect(10, linienAbstand, längeLn1, (int) 7.5);
+
+			// Line 1 Right
+			g2.setColor(Color.GRAY);
+			g2.drawRect(abstandLänge + längeLn1, linienAbstand, längeLn2, 15);
+			g2.fillRect(abstandLänge + längeLn1, linienAbstand, längeLn2, 15);
+
+			g2.setColor(Color.LIGHT_GRAY); // Schatteneffekt
+			g2.fillRect(abstandLänge + längeLn1, linienAbstand, längeLn2,
+					(int) 7.5);
+			g2.fillRect(abstandLänge + längeLn1, linienAbstand, längeLn2,
+					(int) 7.5);
+
+			lastZahl = zufallsZahl; // Speichert die letzte Zufallszahl
+			linienAbstand += 200;
+
+			// Test purpose only
+			System.out.println("RZ: " + zufallsZahl);
+			System.out.println(längeLn1);
+			System.out.println(längeLn2);
 		}
-
-		//Wählt die Länge der Linien aus aufgrund von der zufallsZahl
-		switch (zufallsZahl) {
-		case 1:
-			this.setLängeLn1(0);
-			this.setLängeLn2(400);
-			break;
-		case 2:
-			this.setLängeLn1(100);
-			this.setLängeLn2(300);
-			break;
-		case 3:
-			this.setLängeLn1(200);
-			this.setLängeLn2(300);
-			break;
-		case 4:
-			this.setLängeLn1(300);
-			this.setLängeLn2(100);
-			break;
-		case 5:
-			this.setLängeLn1(400);
-			this.setLängeLn2(0);
-			break;
-		}
-		
-		//Fügt die letzte Zufallszahl in die Liste hinzu
-		zufallsZahlen.add(this.getZufallsZahl());
-		
-		// Linie 1 Left
-		g2.setColor(Color.GRAY);
-		g2.drawRect(10, linienAbstand, längeLn1, 15);
-		g2.fillRect(10, linienAbstand, längeLn1, 15);
-
-		g2.setColor(Color.LIGHT_GRAY); // Schatteneffekt
-		g2.drawRect(10, linienAbstand, längeLn1, (int) 7.5);
-		g2.fillRect(10, linienAbstand, längeLn1, (int) 7.5);
-
-		// Line 1 Right
-		g2.setColor(Color.GRAY);
-		g2.drawRect(abstandLänge + längeLn1, linienAbstand, längeLn2, 15);
-		g2.fillRect(abstandLänge + längeLn1, linienAbstand, längeLn2, 15);
-
-		g2.setColor(Color.LIGHT_GRAY); // Schatteneffekt
-		g2.fillRect(abstandLänge + längeLn1, linienAbstand, längeLn2, (int) 7.5);
-		g2.fillRect(abstandLänge + längeLn1, linienAbstand, längeLn2, (int) 7.5);
-
-		lastZahl = zufallsZahl; // Speichert die letzte Zufallszahl
-		linienAbstand += 150;
-		
-		//Test purpose only
-		System.out.println("RZ: " + zufallsZahl);
-		System.out.println(längeLn1);
-		System.out.println(längeLn2);
-		scrollUp(g2); //Verschiebt die Linie nach oben
 	}
 
-	//Zeichnet die Linien
+	// Zeichnet die Linien
 	public void repaint(Graphics g2) {
 		g2.clearRect(0, 0, 517, 1000);
-		
+
 		for (int i = 1; i < 5; i++) {
 			if (linienAbstand >= 1000) {
 				linienAbstand = 150;
 				this.randomZahl(6);
 
-				while (zufallsZahl == lastZahl) { // Überprüft dass keine Lücke zweimal vorkommt
+				while (zufallsZahl == lastZahl) { // Überprüft dass keine Lücke
+													// zweimal vorkommt
 					this.randomZahl(6);
 				}
 
@@ -165,7 +174,71 @@ public class LineGenerator {
 		}
 		int linienAbstand = this.getLinienAbstand();
 		this.setLinienAbstand(linienAbstand - 1 - 600);
-		repaint(g2);
+		g2.clearRect(0, 0, 517, 1000);
+
+		for (int i = 1; i < 5; i++) {
+			if (linienAbstand >= 1000) {
+				linienAbstand = 150;
+				this.randomZahl(6);
+
+				while (zufallsZahl == lastZahl) { // Überprüft dass keine Lücke
+													// zweimal vorkommt
+					this.randomZahl(6);
+				}
+
+				// Setzt die Linienlängen
+				switch (zufallsZahl) {
+				case 1:
+					this.setLängeLn1(0);
+					this.setLängeLn2(400);
+					break;
+				case 2:
+					this.setLängeLn1(100);
+					this.setLängeLn2(300);
+					break;
+				case 3:
+					this.setLängeLn1(200);
+					this.setLängeLn2(300);
+					break;
+				case 4:
+					this.setLängeLn1(300);
+					this.setLängeLn2(100);
+					break;
+				case 5:
+					this.setLängeLn1(400);
+					this.setLängeLn2(0);
+					break;
+				}
+			}
+
+			// Linie 1 Left
+			g2.setColor(Color.GRAY);
+			g2.drawRect(10, linienAbstand, längeLn1, 15);
+			g2.fillRect(10, linienAbstand, längeLn1, 15);
+
+			g2.setColor(Color.LIGHT_GRAY); // Schatteneffekt
+			g2.drawRect(10, linienAbstand, längeLn1, (int) 7.5);
+			g2.fillRect(10, linienAbstand, längeLn1, (int) 7.5);
+
+			// Line 1 Right
+			g2.setColor(Color.GRAY);
+			g2.drawRect(abstandLänge + längeLn1, linienAbstand, längeLn2, 15);
+			g2.fillRect(abstandLänge + längeLn1, linienAbstand, längeLn2, 15);
+
+			g2.setColor(Color.LIGHT_GRAY); // Schatteneffekt
+			g2.fillRect(abstandLänge + längeLn1, linienAbstand, längeLn2,
+					(int) 7.5);
+			g2.fillRect(abstandLänge + längeLn1, linienAbstand, längeLn2,
+					(int) 7.5);
+
+			lastZahl = zufallsZahl; // Speichert die letzte Zufallszahl
+			linienAbstand += 150;
+
+			System.out.println("RZ: " + zufallsZahl);
+			System.out.println(längeLn1);
+			System.out.println(längeLn2);
+		}
+
 	}
 
 	// Public setter und getter
