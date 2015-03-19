@@ -1,106 +1,40 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+/**
+ * @author Dominic Pfister, ICT Berufsbildungscenter AG,
+ *         dominic.pfister@bbcag.ch
+ * @version 1.0
+ */
 
-public class Board extends JPanel implements ActionListener {
-	
-	//Variables
-	private boolean ingame = true;
-	private Player player;
-	private Timer timer;
-	private LineGenerator lg;
-	
-	// Serial ID
-	private static final long serialVersionUID = 4648172894076113183L;
-	
-    public Board() {
+public class Board extends JFrame {
 
-        addKeyListener(new TAdapter());
-        setFocusable(true);
-        setBackground(Color.WHITE);
-        setDoubleBuffered(true);
+	// SerialID
+	private static final long serialVersionUID = 1L;
 
-        player = new Player();
-        lg = new LineGenerator();
+	// Variablen
+	// private boolean inGame = true;
+	private LineGenerator lg = new LineGenerator();
 
-        timer = new Timer(5, this); //5ms
-        timer.start();
-    }
+	public Board() {
 
-    public void paint(Graphics g) {
-    	
-    	super.paint(g);
-
-
-    	
-		//Zeichnet den Spieler
-        super.paint(g);
-
-        Graphics2D gP = (Graphics2D) g;
-        gP.drawImage(player.getImage(), player.getX(), player.getY(), this);
-
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
-    }
-    
-    public void actionPerformed(ActionEvent e) { //Funktion wird alle 5ms aufgerufen
-        player.move();
-        repaint();  
-    }
-    
-    private class TAdapter extends KeyAdapter {
-
-        public void keyReleased(KeyEvent e) {
-            player.keyReleased(e);
-        }
-
-        public void keyPressed(KeyEvent e) {
-            player.keyPressed(e);
-        }
-    }
-    
-	public void addNotify() {
-		super.addNotify();
-		gameInit();
+		// Initialisiert das JFrame
+		getContentPane().setBackground(Color.YELLOW); // Setzt die
+														// Hintergrundfarbe
+		setSize(517, 1000); // Breite und Länge von Fenster
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 	}
 
-	public void gameInit() {
-		this.setPlayer(new Player());
-		this.setLg(lg);
+	public void paint(Graphics g) { // Fügt die paint() Methode von
+									// LineGenerator hinzu
+		lg.paint(g);
 	}
 
-	public boolean isIngame() {
-		return ingame;
-	}
-
-	
-	//Getter und Setter
-	public void setIngame(boolean ingame) {
-		this.ingame = ingame;
-	}
-
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
-	public LineGenerator getLg() {
-		return lg;
-	}
-
-	public void setLg(LineGenerator lg) {
-		this.lg = lg;
+	public static void main(String[] args) {
+		new Board(); // Fügt alle Methoden aus Board() hinzu
 	}
 
 }
