@@ -24,6 +24,7 @@ public class Board extends JFrame implements ActionListener {
 	private Line l3 = new Line();
 	private Line l4 = new Line();
 	private Line l5 = new Line();
+	private Line border = new Line();
 
 	public Board() {
 
@@ -59,7 +60,11 @@ public class Board extends JFrame implements ActionListener {
         
         g1.drawImage(l5.getImageL(), Line.getX(), l5.getY() + 800, this);
         g1.drawImage(l5.getImageR(), l5.getImageL().getWidth(null) +  Line.getLinienAbstand() , l5.getY() + 800, this);
-    }
+        
+        // Borders
+        
+        g1.drawImage(border.getBorderL(), 4, 0, 16, 1000, this);
+        g1.drawImage(border.getBorderL(), 499, 0, 15, 1000, this);    }
 
 	public static void main(String[] args) {
 		new Board(); // Fügt alle Methoden aus Board() hinzu
@@ -71,6 +76,6 @@ public class Board extends JFrame implements ActionListener {
         l3.move();
         l4.move();
         l5.move();
-        repaint();
+        repaint(20, 0, 479, 1000);
     }
 }

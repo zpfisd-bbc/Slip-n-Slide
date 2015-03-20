@@ -15,6 +15,8 @@ public class Line {
 	private String pfad2; //Pfad für Linie 2
 	private Image imageL;
 	private Image imageR;
+	private Image borderL;
+	private Image borderR;
 	private static int linienAbstand = 100;
 	private static int x = 20;
 	private int y = 100;
@@ -27,8 +29,12 @@ public class Line {
 		this.pathSelector();
         ImageIcon lnL = new ImageIcon(this.getClass().getResource(pfad1));
         ImageIcon lnR = new ImageIcon(this.getClass().getResource(pfad2));
+        ImageIcon borderL = new ImageIcon(this.getClass().getResource("/images/border_left.jpg"));
+        ImageIcon borderR = new ImageIcon(this.getClass().getResource("/images/border_right.jpg"));
 		this.setImageL(lnL.getImage());
 		this.setImageR(lnR.getImage());
+		this.setBorderL(borderL.getImage());
+		this.setBorderL(borderR.getImage());
 		this.setLastZahl(zufallsZahl);
 	}
 	
@@ -158,6 +164,22 @@ public class Line {
 
 	public void setImageR(Image imageR) {
 		this.imageR = imageR;
+	}
+
+	public Image getBorderL() {
+		return borderL;
+	}
+
+	public void setBorderL(Image borderL) {
+		this.borderL = borderL;
+	}
+
+	public Image getBorderR() {
+		return borderR;
+	}
+
+	public void setBorderR(Image borderR) {
+		this.borderR = borderR;
 	}
 
 	public static int getX() {
