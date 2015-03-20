@@ -19,9 +19,9 @@ public class Line {
 	private Image borderR;
 	private static int linienAbstand = 100;
 	private static int x = 20;
-	private int y = 100;
+	private int y = 200;
 	private int yMove;
-	private int scrollSpeed = 1; //Geschwindigkeit für Bewegen von Linien
+	private int scrollSpeed = 2; //Geschwindigkeit für Bewegen von Linien
 	private int lastZahl; //Speichert die letzte Zufallszahl
 	
 	public Line() {
@@ -42,7 +42,9 @@ public class Line {
      * Moves the line
     */
 	public void move() {
-		y += - scrollSpeed;  
+		y += - scrollSpeed; 
+		
+		// Position reset
 	}
 	
     /**

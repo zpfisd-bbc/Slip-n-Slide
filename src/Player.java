@@ -12,19 +12,18 @@ public class Player {
 	
 	//Variablen
 	private int xPos = 20;
-	@SuppressWarnings("unused")
 	private int yPos;
 	private Image image;
-	private String pfad;
+	private String pfad = "/images/Triangle.png";
 	private int xMove;
 	private int yMove;
-	private int playerSpeed;
-	private int playerSpeedDown = 1; //Gravity
+	private int playerSpeed = 10;
+	private int playerSpeedDown = 5; //Gravity
 //  private boolean playerDead; TODO
 
 	public Player() {
 		this.setPfad("Triangle.png"); //Setzt den Pfad für das Bild
-		ImageIcon ii = new ImageIcon(this.getClass().getResource(pfad));
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/Triangle.png"));
 		this.setImage(ii.getImage()); //Wandelt das Bild in ein ImageIcon um
 	}
 	
@@ -67,6 +66,46 @@ public class Player {
 
 	public void setxPos(int xPos) {
 		this.xPos = xPos;
+	}
+
+	public int getyPos() {
+		return yPos;
+	}
+
+	public void setyPos(int yPos) {
+		this.yPos = yPos;
+	}
+
+	public int getxMove() {
+		return xMove;
+	}
+
+	public void setxMove(int xMove) {
+		this.xMove = xMove;
+	}
+
+	public int getyMove() {
+		return yMove;
+	}
+
+	public void setyMove(int yMove) {
+		this.yMove = yMove;
+	}
+
+	public int getPlayerSpeed() {
+		return playerSpeed;
+	}
+
+	public void setPlayerSpeed(int playerSpeed) {
+		this.playerSpeed = playerSpeed;
+	}
+
+	public int getPlayerSpeedDown() {
+		return playerSpeedDown;
+	}
+
+	public void setPlayerSpeedDown(int playerSpeedDown) {
+		this.playerSpeedDown = playerSpeedDown;
 	}
 
 	public String getPfad() {
