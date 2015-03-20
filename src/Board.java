@@ -81,52 +81,58 @@ public class Board extends JFrame implements ActionListener {
         while (l4.getZufallsZahl() == l5.getZufallsZahl()) {
         	l5.redoLine();
         }
-       
-        if (l.getY() != -10) {
-        g1.drawImage(l.getImageL(), Line.getX(), l.getY(), this);
-        g1.drawImage(l.getImageR(), l.getImageL().getWidth(null) +  Line.getLinienAbstand() , l.getY(), this);
-    	} 
-        else {
-    		l = null;
-    		l = new Line();
-    	}
-        
-        if (l2.getY() != -10) {
-        g1.drawImage(l2.getImageL(), Line.getX(), l2.getY() + 200, this);
-        g1.drawImage(l2.getImageR(), l2.getImageL().getWidth(null) +  Line.getLinienAbstand() , l2.getY() + 200, this);
-    	} 
-        else {
-    		l2 = null;
-    		l2 = new Line();
-    	}
-        
-        if (l3.getY() != -10) {
-        g1.drawImage(l3.getImageL(), Line.getX(), l3.getY() + 400, this);
-        g1.drawImage(l3.getImageR(), l3.getImageL().getWidth(null) +  Line.getLinienAbstand() , l3.getY() + 400, this);
-    	} 
-        else {
-    		l3 = null;
-    		l3 = new Line();
-    	}
-        
-        if (l4.getY() != -10) {
-        g1.drawImage(l4.getImageL(), Line.getX(), l4.getY() + 600, this);
-        g1.drawImage(l4.getImageR(), l4.getImageL().getWidth(null) +  Line.getLinienAbstand() , l4.getY() + 600, this);
-    	} 
-        else {
-    		l4 = null;
-    		l4 = new Line();
-    	}
-        
-        if (l5.getY() != -10) {
-        g1.drawImage(l5.getImageL(), Line.getX(), l5.getY() + 800, this);
-        g1.drawImage(l5.getImageR(), l5.getImageL().getWidth(null) +  Line.getLinienAbstand() , l5.getY() + 800, this);
-    	} 
-        else {
-    		l5 = null;
-    		l5 = new Line();
-    	}
-        
+               
+                if (l.getY() != -10) {
+                g1.drawImage(l.getImageL(), Line.getX(), l.getY(), this);
+                g1.drawImage(l.getImageR(), l.getImageL().getWidth(null) +  Line.getLinienAbstand() , l.getY(), this);
+            	} 
+                else {
+            		l = null;
+            		l = new Line();
+            		l.setY(l.getY() + 800);
+            	}
+                
+                if (l2.getY() != -190) { // 150
+                g1.drawImage(l2.getImageL(), Line.getX(), l2.getY() + 200, this);
+                g1.drawImage(l2.getImageR(), l2.getImageL().getWidth(null) +  Line.getLinienAbstand() , l2.getY() + 200, this);
+            	} 
+                else {
+            		l2 = null;
+            		l2 = new Line();
+            		l2.setY(l2.getY() + 620);
+            	}
+                
+                if (l3.getY() != -390) { // 310
+                g1.drawImage(l3.getImageL(), Line.getX(), l3.getY() + 400, this);
+                g1.drawImage(l3.getImageR(), l3.getImageL().getWidth(null) +  Line.getLinienAbstand() , l3.getY() + 400, this);
+            	} 
+                else {
+            		l3 = null;
+            		l3 = new Line();
+            		l3.setY(l3.getY() + 420);
+
+            	}
+                
+                if (l4.getY() != -590) {
+                g1.drawImage(l4.getImageL(), Line.getX(), l4.getY() + 600, this);
+                g1.drawImage(l4.getImageR(), l4.getImageL().getWidth(null) +  Line.getLinienAbstand() , l4.getY() + 600, this);
+            	} 
+                else {
+            		l4 = null;
+            		l4 = new Line();
+            		l4.setY(l.getY());
+            	}
+                
+                if (l5.getY() != -790) {
+                g1.drawImage(l5.getImageL(), Line.getX(), l5.getY() + 800, this);
+                g1.drawImage(l5.getImageR(), l5.getImageL().getWidth(null) +  Line.getLinienAbstand() , l5.getY() + 800, this);
+            	} 
+                else {
+            		l5 = null;
+            		l5 = new Line();
+            		l5.setY(l5.getY() + 20);
+            	}
+                
         // Borders
         
         g1.drawImage(border.getBorderL(), 4, 0, 16, 1000, this);
