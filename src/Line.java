@@ -22,11 +22,20 @@ public class Line {
 	private int y = 200;
 	private int yMove;
 	private int scrollSpeed = 2; //Geschwindigkeit fÃ¼r Bewegen von Linien
-	private int lastZahl; //Speichert die letzte Zufallszahl
 	
 	public Line() {
-		this.randomZahl(5);
+		this.redoLine();
+	}
+	
+	//Erstellt eine komplett neue Linie
+	public void redoLine() { //Wird gebraucht falls eine Linie
+		this.randomZahl(5); //bereits vorhanden ist
 		this.pathSelector();
+		this.addImage();
+	}
+	
+	//Erstellt Image für Objekt
+	public void addImage() {
         ImageIcon lnL = new ImageIcon(this.getClass().getResource(pfad1));
         ImageIcon lnR = new ImageIcon(this.getClass().getResource(pfad2));
         ImageIcon borderL = new ImageIcon(this.getClass().getResource("/images/border_left.jpg"));
@@ -35,16 +44,13 @@ public class Line {
 		this.setImageR(lnR.getImage());
 		this.setBorderL(borderL.getImage());
 		this.setBorderL(borderR.getImage());
-		this.setLastZahl(zufallsZahl);
 	}
 	
     /**
      * Moves the line
     */
 	public void move() {
-		y += - scrollSpeed; 
-		
-		// Position reset
+		y += - scrollSpeed;
 	}
 	
     /**
@@ -190,14 +196,6 @@ public class Line {
 
 	public static void setX(int x) {
 		Line.x = x;
-	}
-
-	public int getLastZahl() {
-		return lastZahl;
-	}
-
-	public void setLastZahl(int lastZahl) {
-		this.lastZahl = lastZahl;
 	}
 	
 	

@@ -23,12 +23,14 @@ public class Board extends JFrame implements ActionListener {
 
 	// Variablen
 	private Player player;
+
 	private Line l = new Line();
 	private Line l2 = new Line();
 	private Line l3 = new Line();
 	private Line l4 = new Line();
 	private Line l5 = new Line();
-	private Line border = new Line();
+	
+	private Line border = new Line(); 
 	
 	public Board() {
 
@@ -51,6 +53,34 @@ public class Board extends JFrame implements ActionListener {
 
         super.paint(g);
         Graphics2D g1 = (Graphics2D)g;
+        
+        try {
+        	//Prüft Linie 1
+        	while (l.getZufallsZahl() == l5.getZufallsZahl()) {
+        		l.redoLine();
+        	}
+		} catch (NullPointerException e) {
+		}
+        
+        //Prüft Linie 2
+        while (l.getZufallsZahl() == l2.getZufallsZahl()) {
+        	l2.redoLine();
+        }
+        
+        //Prüft Linie 3
+        while (l2.getZufallsZahl() == l3.getZufallsZahl()) {
+        	l3.redoLine();
+        }
+        
+        //Prüft Linie 4
+        while (l3.getZufallsZahl() == l4.getZufallsZahl()) {
+        	l4.redoLine();
+        }
+        
+        //Prüft Linie 1
+        while (l4.getZufallsZahl() == l5.getZufallsZahl()) {
+        	l5.redoLine();
+        }
        
         if (l.getY() != -10) {
         g1.drawImage(l.getImageL(), Line.getX(), l.getY(), this);
