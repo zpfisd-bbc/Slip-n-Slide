@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,9 +22,8 @@ public class Board extends JFrame implements ActionListener {
 	// SerialID
 	private static final long serialVersionUID = 1L;
 
-	// Variablen
+	// Objects
 	private Player player;
-
 	private Line l = new Line();
 	private Line l2 = new Line();
 	private Line l3 = new Line();
@@ -33,7 +33,7 @@ public class Board extends JFrame implements ActionListener {
 	private Line border = new Line(); 
 	
 	public Board() {
-
+		
 		// Initialisiert das JFrame
 		getContentPane().setBackground(Color.YELLOW); //Setzt die Hintergrundfarbe
 		setSize(517, 1000); // Breite und LÃ¤nge von Fenster
@@ -54,6 +54,7 @@ public class Board extends JFrame implements ActionListener {
         super.paint(g);
         Graphics2D g1 = (Graphics2D)g;
         
+        // Prüft ob die vorhergehende Linie nicht die gleiche Struktur besitzt
         try {
         	//Prüft Linie 1
         	while (l.getZufallsZahl() == l5.getZufallsZahl()) {
@@ -81,7 +82,8 @@ public class Board extends JFrame implements ActionListener {
         while (l4.getZufallsZahl() == l5.getZufallsZahl()) {
         	l5.redoLine();
         }
-               
+               	// Wiederholt die Linien wenn sie aus dem Rahmen fahren
+        		// setzt die neuen Coordinaten
                 if (l.getY() != -10) {
                 g1.drawImage(l.getImageL(), Line.getX(), l.getY(), this);
                 g1.drawImage(l.getImageR(), l.getImageL().getWidth(null) +  Line.getLinienAbstand() , l.getY(), this);
@@ -134,7 +136,6 @@ public class Board extends JFrame implements ActionListener {
             	}
                 
         // Borders
-        
         g1.drawImage(border.getBorderL(), 4, 0, 16, 1000, this);
         g1.drawImage(border.getBorderL(), 499, 0, 15, 1000, this);    
     
@@ -144,12 +145,15 @@ public class Board extends JFrame implements ActionListener {
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
+        
+        checkCollisions();
     }
 
 	public static void main(String[] args) {
-		new Board(); // FÃ¼gt alle Methoden aus Board() hinzu
+		new Board(); // Fängt alle Methoden aus Board() hinzu
 	}
     
+	// Prüft ob eine Taste gedrückt wird
     private class TAdapter extends KeyAdapter {
 
         public void keyReleased(KeyEvent e) {
@@ -161,7 +165,42 @@ public class Board extends JFrame implements ActionListener {
         }
     }
 	
-    public void actionPerformed(ActionEvent e) { //Funktion wird alle 5ms aufgerufen
+    // checks collisions for all lines with the Sprite
+    public void checkCollisions() {
+
+        Rectangle prec = player.getBoundsPlayer();
+        Rectangle lineL = l.getBoundsL();
+        Rectangle lineR = l.getBoundsR();
+        Rectangle line2L = l2.getBoundsL();
+        Rectangle line2R = l2.getBoundsR();
+        Rectangle line3L = l3.getBoundsL();
+        Rectangle line3R = l3.getBoundsR();
+        Rectangle line4L = l4.getBoundsL();
+        Rectangle line4R = l4.getBoundsR();
+        Rectangle line5L = l5.getBoundsL();
+        Rectangle line5R = l5.getBoundsR();
+
+        // if it collided with one:
+		if (prec.intersects(lineL) || prec.intersects(lineR)
+		 || prec.intersects(line2L) || prec.intersects(line2R)
+		 || prec.intersects(line3L) || prec.intersects(line3R)
+		 || prec.intersects(line4L) || prec.intersects(line4R)
+		 || prec.intersects(line5L) || prec.intersects(line5R)) {
+			
+			// sets y achsis and stops the moving down
+			System.out.println("Ich han collided Captain");
+			player.setPlayerSpeedDown(0);
+			player.setyPos(l.getY() - 30);
+	
+		} else {
+			
+			// continues to move down
+			player.setPlayerSpeedDown(2);
+		}
+	}
+    
+    //Funktion wird alle 5ms aufgerufen
+    public void actionPerformed(ActionEvent e) {
         l.move();
         l2.move();
         l3.move();

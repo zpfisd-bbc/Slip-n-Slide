@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
@@ -18,7 +19,7 @@ public class Player {
 	private int xMove;
 	private int yMove;
 	private int playerSpeed = 10;
-	private int playerSpeedDown = 5; //Gravity
+	private int playerSpeedDown = 1; //Gravity
 //  private boolean playerDead; TODO
 
 	public Player() {
@@ -27,6 +28,12 @@ public class Player {
 		this.setImage(ii.getImage()); //Wandelt das Bild in ein ImageIcon um
 	}
 	
+	
+	/**
+	 * 
+	 * Moves the Player-Sprite with x and y
+	 * 
+	 */
 	public void move() {
 		xPos += xMove;
 		yPos += yMove + playerSpeedDown;
@@ -46,6 +53,12 @@ public class Player {
 
 	}
 
+	
+	/**
+	 * 
+	 * checks if the key is released
+	 * 
+	 */
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 
@@ -58,6 +71,16 @@ public class Player {
 			xMove = 0;
 		}
 	}
+	
+	/**
+	 * 
+	 * Returns a rectangular shape with the bounds of the Image
+	 * 	
+	 */
+    public Rectangle getBoundsPlayer() {
+        return new Rectangle(this.getxPos(), this.getyPos(), image.getWidth(null), image.getHeight(null));
+    }
+
 	
 	//Getter und setter
 	public int getxPos() {

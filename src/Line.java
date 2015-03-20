@@ -1,5 +1,7 @@
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.Random;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -91,6 +93,24 @@ public class Line {
 		}
 		System.out.println(zufallsZahl);
 	}
+	
+	/**
+	 * 
+	 * Returns a rectangular shape with the bounds of the Image (Left bar)
+	 * 	
+	 */
+    public Rectangle getBoundsL() {
+        return new Rectangle(10, this.getY(), imageL.getWidth(null), imageL.getHeight(null));
+    }
+
+	/**
+	 * 
+	 * Returns a rectangular shape with the bounds of the Image (Right bar)
+	 * 	
+	 */
+    public Rectangle getBoundsR() {
+        return new Rectangle(10, this.getY(), imageR.getWidth(null), imageR.getHeight(null));
+    }
 
 	
 	//Getter und setter
