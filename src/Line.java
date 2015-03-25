@@ -99,7 +99,7 @@ public class Line {
 	 * 	
 	 */
     public Rectangle getBoundsL() {
-        return new Rectangle(10, this.getY(), imageL.getWidth(null), imageL.getHeight(null));
+        return new Rectangle(10, this.getY() - 20, imageL.getWidth(null), imageL.getHeight(null));
     }
 
 	/**
@@ -108,7 +108,7 @@ public class Line {
 	 * 	
 	 */
     public Rectangle getBoundsR() {
-        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY(), imageR.getWidth(null), imageR.getHeight(null));
+        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY() - 20, imageR.getWidth(null), imageR.getHeight(null));
     }
 	/**
 	 * 
@@ -116,7 +116,7 @@ public class Line {
 	 * 	
 	 */
     public Rectangle getBoundsL2() {
-        return new Rectangle(10, this.getY() + 200, imageL.getWidth(null), imageL.getHeight(null));
+        return new Rectangle(10, this.getY() + 180, imageL.getWidth(null), imageL.getHeight(null));
     }
 
 	/**
@@ -125,7 +125,7 @@ public class Line {
 	 * 	
 	 */
     public Rectangle getBoundsR2() {
-        return new Rectangle(this.getImageL().getWidth(null) + Line.getLinienAbstand() + 7, this.getY() + 200, imageR.getWidth(null), imageR.getHeight(null));
+        return new Rectangle(this.getImageL().getWidth(null) + Line.getLinienAbstand() + 7, this.getY() + 180, imageR.getWidth(null), imageR.getHeight(null));
     }
 	/**
 	 * 
@@ -133,7 +133,7 @@ public class Line {
 	 * 	
 	 */
     public Rectangle getBoundsL3() {
-        return new Rectangle(10, this.getY() + 400, imageL.getWidth(null), imageL.getHeight(null));
+        return new Rectangle(10, this.getY() + 380, imageL.getWidth(null), imageL.getHeight(null));
     }
 
 	/**
@@ -142,7 +142,7 @@ public class Line {
 	 * 	
 	 */
     public Rectangle getBoundsR3() {
-        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY() + 400, imageR.getWidth(null), imageR.getHeight(null));
+        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY() + 380, imageR.getWidth(null), imageR.getHeight(null));
     }
 	/**
 	 * 
@@ -150,7 +150,7 @@ public class Line {
 	 * 	
 	 */
     public Rectangle getBoundsL4() {
-        return new Rectangle(10, this.getY() + 600, imageL.getWidth(null), imageL.getHeight(null));
+        return new Rectangle(10, this.getY() + 580, imageL.getWidth(null), imageL.getHeight(null));
     }
 
 	/**
@@ -159,7 +159,7 @@ public class Line {
 	 * 	
 	 */
     public Rectangle getBoundsR4() {
-        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY() + 600, imageR.getWidth(null), imageR.getHeight(null));
+        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY() + 580, imageR.getWidth(null), imageR.getHeight(null));
     }
 	/**
 	 * 
@@ -167,7 +167,7 @@ public class Line {
 	 * 	
 	 */
     public Rectangle getBoundsL5() {
-        return new Rectangle(10, this.getY() + 800, imageL.getWidth(null), imageL.getHeight(null));
+        return new Rectangle(10, this.getY() + 780, imageL.getWidth(null), imageL.getHeight(null));
     }
 
 	/**
@@ -176,7 +176,25 @@ public class Line {
 	 * 	
 	 */
     public Rectangle getBoundsR5() {
-        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY() + 800, imageR.getWidth(null), imageR.getHeight(null));
+        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY() + 780, imageR.getWidth(null), imageR.getHeight(null));
+    }
+    
+	/**
+	 * 
+	 * Gibt den Rand des Borders (linker Teil) zurück
+	 * 	
+	 */
+    public Rectangle getBoundsBorderL() {
+        return new Rectangle(15, 0, borderL.getWidth(null), borderL.getHeight(null));
+    }
+    
+	/**
+	 * 
+	 * Gibt den Rand des Borders (rechter Teil) zurück
+	 * 	
+	 */
+    public Rectangle getBoundsBorderR() {
+        return new Rectangle(479, 1000, borderL.getWidth(null), borderL.getHeight(null));
     }
     
 

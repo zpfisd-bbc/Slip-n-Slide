@@ -17,12 +17,13 @@ public class Player {
 	private Image image;
 	private int xMove;
 	private int yMove;
-	private int playerSpeed = 10; //Links und Rechts Geschwindigkeit
+	private int playerSpeedLeft = 7; //Links und Rechts Geschwindigkeit
+	private int playerSpeedRight = 7;
 	private int playerSpeedDown = 10; //Gravity
 //  private boolean playerDead; TODO
 
 	public Player() {
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/Sprite3.png"));
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/Triangle.png"));
 		this.setImage(ii.getImage()); //Wandelt das Bild in ein ImageIcon um
 	}
 	
@@ -42,11 +43,11 @@ public class Player {
 		int key = e.getKeyCode();
 
 		if (key == KeyEvent.VK_LEFT) {
-			xMove = 1 * -(playerSpeed); //Geschwindigkeit nach Links
+			xMove = 1 * -(playerSpeedLeft); //Geschwindigkeit nach Links
 		}
 
 		if (key == KeyEvent.VK_RIGHT) {
-			xMove = 1 * playerSpeed; //Geschwindigkeit nach rechts
+			xMove = 1 * playerSpeedRight; //Geschwindigkeit nach rechts
 		}
 
 	}
@@ -113,12 +114,20 @@ public class Player {
 		this.yMove = yMove;
 	}
 
-	public int getPlayerSpeed() {
-		return playerSpeed;
+	public int getPlayerSpeedLeft() {
+		return playerSpeedLeft;
 	}
 
-	public void setPlayerSpeed(int playerSpeed) {
-		this.playerSpeed = playerSpeed;
+	public void setPlayerSpeedLeft(int playerSpeedLeft) {
+		this.playerSpeedLeft = playerSpeedLeft;
+	}
+	
+	public int getPlayerSpeedRight() {
+		return playerSpeedRight;
+	}
+
+	public void setPlayerSpeedRight(int playerSpeedRight) {
+		this.playerSpeedRight = playerSpeedRight;
 	}
 
 	public int getPlayerSpeedDown() {

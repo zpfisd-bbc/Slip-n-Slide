@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
@@ -30,7 +31,6 @@ public class Board extends JFrame implements ActionListener {
 	private Line l3 = new Line();
 	private Line l4 = new Line();
 	private Line l5 = new Line();
-	
 	private Line border = new Line();
 	
 	private boolean alreadyExecutedL1 = false; 
@@ -38,12 +38,15 @@ public class Board extends JFrame implements ActionListener {
 	private boolean alreadyExecutedL3 = false;
 	private boolean alreadyExecutedL4 = false;
 	private boolean alreadyExecutedL5 = false;
-
-	
+	private int highscore = 0;
+	protected JLabel scoreLabel;
+	protected JPanel peter;
 	public Board() {
+		
 
 		// Initialisiert das JFrame
-		setContentPane(new JLabel(new ImageIcon("D:\\Users\\zpfisd\\workspace\\SlipSlideV2\\src\\images\\bg2.jpg")));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/images/bg2.jpg"))));
+
 		setSize(517, 1000); // Breite und Länge von Fenster
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,8 +55,10 @@ public class Board extends JFrame implements ActionListener {
 		addKeyListener(new TAdapter());
         setFocusable(true);
         player = new Player();
-		Timer timer = new Timer(25, this);
+        Timer timer = new Timer(25, this);
 		timer.start();
+
+		
 	}
 	
     public void paint(Graphics g) {
@@ -185,6 +190,10 @@ public class Board extends JFrame implements ActionListener {
         
         checkCollisions();
     }
+    
+    
+    
+    
     /**
      * Überprüft ob der Spieler eine Linie berührt hat
      */
@@ -201,26 +210,65 @@ public class Board extends JFrame implements ActionListener {
         Rectangle line4R = l4.getBoundsR4();
         Rectangle line5L = l5.getBoundsL5();
         Rectangle line5R = l5.getBoundsR5();
-
+        Rectangle borderL = border.getBoundsBorderL();
+        Rectangle borderR = border.getBoundsBorderR();
+        
 		if (prec.intersects(lineL) || prec.intersects(lineR)) { //Checkt Linie 1
-			player.setyPos(l.getY() - 30);
+			player.setyPos(l.getY() - 28);
 			player.setPlayerSpeedDown(0);
+			player.setPlayerSpeedLeft(7);
+			if(prec.intersects(lineL) && prec.intersects(borderL)) {
+				player.setPlayerSpeedLeft(0);
+			} else if (prec.intersects(lineR) && prec.intersects(borderL)) {
+				player.setPlayerSpeedRight(0);
+			}
 		} else if (prec.intersects(line2L) || prec.intersects(line2R)) {  //Checkt Linie 2
-			player.setyPos(l2.getY() + 200 -30);
+			player.setyPos(l2.getY() + 200 - 28);
 			player.setPlayerSpeedDown(0);
+			player.setPlayerSpeedLeft(7);
+			if(prec.intersects(line2L) && prec.intersects(borderL)) {
+				player.setPlayerSpeedLeft(0);
+			} else if (prec.intersects(line2R) && prec.intersects(borderL)) {
+				player.setPlayerSpeedRight(0);
+			}
 		} else if (prec.intersects(line3L) || prec.intersects(line3R)) {  //Checkt Linie 3
-			player.setyPos(l3.getY() + 400 -30);
+			player.setyPos(l3.getY() + 400 - 28);
 			player.setPlayerSpeedDown(0);
+			player.setPlayerSpeedLeft(7);
+			if(prec.intersects(line3L) && prec.intersects(borderL)) {
+				player.setPlayerSpeedLeft(0);
+			} else if (prec.intersects(line3R) && prec.intersects(borderL)) {
+				player.setPlayerSpeedRight(0);
+			}
 		} else if (prec.intersects(line4L) || prec.intersects(line4R)) {  //Checkt Linie 4
-			player.setyPos(l4.getY() + 600 -30);
+			player.setyPos(l4.getY() + 600 - 28);
 			player.setPlayerSpeedDown(0);
+			player.setPlayerSpeedLeft(7);
+			if(prec.intersects(line4L) && prec.intersects(borderL)) {
+				player.setPlayerSpeedLeft(0);
+			} else if (prec.intersects(line4R) && prec.intersects(borderL)) {
+				player.setPlayerSpeedRight(0);
+			}
 		} else if (prec.intersects(line5L) || prec.intersects(line5R)) {  //Checkt Linie 5
-			player.setyPos(l5.getY() + 800 -30);
+			player.setyPos(l5.getY() + 800 - 28);
 			player.setPlayerSpeedDown(0);
-		} else {
-			player.setPlayerSpeedDown(10);
+			player.setPlayerSpeedLeft(7);
+			if(prec.intersects(line5L) && prec.intersects(borderL)) {
+				player.setPlayerSpeedLeft(0);
+			} else if (prec.intersects(line5R) && prec.intersects(borderL)) {
+				player.setPlayerSpeedRight(0);
+			}
+		} else if (prec.intersects(borderL)) {  //Checkt Borders
+			player.setPlayerSpeedLeft(0);
+    	} else if (prec.intersects(borderR)) {  //Checkt Borders
+    		player.setPlayerSpeedDown(0);
+    	} else {
+			player.setPlayerSpeedLeft(7);
+			player.setPlayerSpeedRight(7);
+			player.setPlayerSpeedDown(15);
 		} 
 	}
+    
     
     private class TAdapter extends KeyAdapter {
 
@@ -232,6 +280,30 @@ public class Board extends JFrame implements ActionListener {
             player.keyPressed(e);
         }
     }
+    
+    public void highscore() {
+    	
+    	if(player.getyPos() == l.getY()) {	
+    		setHighscore(getHighscore() + 1);
+    		System.out.println("highscore: " + highscore);
+    	}
+    	else if(player.getyPos() == l2.getY() + 200) {	
+    		setHighscore(getHighscore() + 1);
+    		System.out.println("highscore: " + highscore);
+    	} 
+    	else if(player.getyPos() == l3.getY() + 400) {	
+    		setHighscore(getHighscore() + 1);
+    		System.out.println("highscore: " + highscore);
+    	} 
+    	else if(player.getyPos() == l4.getY() + 600) {	
+    		setHighscore(getHighscore() + 1);
+    		System.out.println("highscore: " + highscore);
+    	} 
+    	else if(player.getyPos() == l5.getY() + 800) {	
+    		setHighscore(getHighscore() + 1);
+    		System.out.println("highscore: " + highscore);
+    	} 
+    }
 	
     public void actionPerformed(ActionEvent e) { //Funktion wird alle 25ms aufgerufen
         l.move();
@@ -240,11 +312,65 @@ public class Board extends JFrame implements ActionListener {
         l4.move();
         l5.move();
         repaint(20, 0, 479, 1000);
+        highscore();
         player.move();
-        repaint();  
+//        repaint(); 
     }
 
 	public static void main(String[] args) {
 		new Board(); // Fügt alle Methoden aus Board() hinzu
+		new Score();
+	}
+
+	public int getHighscore() {
+		return highscore;
+	}
+
+	public void setHighscore(int highscore) {
+		this.highscore = highscore;
+	}
+
+	/**
+	 * @return the player
+	 */
+
+	public Line getL() {
+		return l;
+	}
+
+	public void setL(Line l) {
+		this.l = l;
+	}
+
+	public Line getL2() {
+		return l2;
+	}
+
+	public void setL2(Line l2) {
+		this.l2 = l2;
+	}
+
+	public Line getL3() {
+		return l3;
+	}
+
+	public void setL3(Line l3) {
+		this.l3 = l3;
+	}
+
+	public Line getL4() {
+		return l4;
+	}
+
+	public void setL4(Line l4) {
+		this.l4 = l4;
+	}
+
+	public Line getL5() {
+		return l5;
+	}
+
+	public void setL5(Line l5) {
+		this.l5 = l5;
 	}
 }
