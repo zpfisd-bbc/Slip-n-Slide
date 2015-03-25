@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
@@ -25,7 +24,9 @@ public class Board extends JFrame implements ActionListener {
 
 	// Variablen
 	private Player player;
-
+	private int playerSpeedDown; //Gravity
+	private int playerSpeed; //Geschwindigkeit nach Links & Rechts
+	
 	private Line l = new Line();
 	private Line l2 = new Line();
 	private Line l3 = new Line();
@@ -38,9 +39,9 @@ public class Board extends JFrame implements ActionListener {
 	private boolean alreadyExecutedL3 = false;
 	private boolean alreadyExecutedL4 = false;
 	private boolean alreadyExecutedL5 = false;
+	
 	private int highscore = 0;
-	protected JLabel scoreLabel;
-	protected JPanel peter;
+	
 	public Board() {
 		
 
@@ -55,9 +56,11 @@ public class Board extends JFrame implements ActionListener {
 		addKeyListener(new TAdapter());
         setFocusable(true);
         player = new Player();
-        Timer timer = new Timer(25, this);
+        Timer timer = new Timer(25, this); //25ms = 40fps
 		timer.start();
 
+		this.setPlayerSpeed(5);
+		this.setPlayerSpeedDown(5);
 		
 	}
 	
@@ -210,62 +213,24 @@ public class Board extends JFrame implements ActionListener {
         Rectangle line4R = l4.getBoundsR4();
         Rectangle line5L = l5.getBoundsL5();
         Rectangle line5R = l5.getBoundsR5();
-        Rectangle borderL = border.getBoundsBorderL();
-        Rectangle borderR = border.getBoundsBorderR();
         
 		if (prec.intersects(lineL) || prec.intersects(lineR)) { //Checkt Linie 1
-			player.setyPos(l.getY() - 28);
+			player.setyPos(l.getY() - 30 - 2);
 			player.setPlayerSpeedDown(0);
-			player.setPlayerSpeedLeft(7);
-			if(prec.intersects(lineL) && prec.intersects(borderL)) {
-				player.setPlayerSpeedLeft(0);
-			} else if (prec.intersects(lineR) && prec.intersects(borderL)) {
-				player.setPlayerSpeedRight(0);
-			}
 		} else if (prec.intersects(line2L) || prec.intersects(line2R)) {  //Checkt Linie 2
-			player.setyPos(l2.getY() + 200 - 28);
+			player.setyPos(l2.getY() + 200 -30 - 2);
 			player.setPlayerSpeedDown(0);
-			player.setPlayerSpeedLeft(7);
-			if(prec.intersects(line2L) && prec.intersects(borderL)) {
-				player.setPlayerSpeedLeft(0);
-			} else if (prec.intersects(line2R) && prec.intersects(borderL)) {
-				player.setPlayerSpeedRight(0);
-			}
 		} else if (prec.intersects(line3L) || prec.intersects(line3R)) {  //Checkt Linie 3
-			player.setyPos(l3.getY() + 400 - 28);
+			player.setyPos(l3.getY() + 400 - 30 - 2);
 			player.setPlayerSpeedDown(0);
-			player.setPlayerSpeedLeft(7);
-			if(prec.intersects(line3L) && prec.intersects(borderL)) {
-				player.setPlayerSpeedLeft(0);
-			} else if (prec.intersects(line3R) && prec.intersects(borderL)) {
-				player.setPlayerSpeedRight(0);
-			}
 		} else if (prec.intersects(line4L) || prec.intersects(line4R)) {  //Checkt Linie 4
-			player.setyPos(l4.getY() + 600 - 28);
+			player.setyPos(l4.getY() + 600 - 30 - 2);
 			player.setPlayerSpeedDown(0);
-			player.setPlayerSpeedLeft(7);
-			if(prec.intersects(line4L) && prec.intersects(borderL)) {
-				player.setPlayerSpeedLeft(0);
-			} else if (prec.intersects(line4R) && prec.intersects(borderL)) {
-				player.setPlayerSpeedRight(0);
-			}
 		} else if (prec.intersects(line5L) || prec.intersects(line5R)) {  //Checkt Linie 5
-			player.setyPos(l5.getY() + 800 - 28);
+			player.setyPos(l5.getY() + 800 - 30 - 2);
 			player.setPlayerSpeedDown(0);
-			player.setPlayerSpeedLeft(7);
-			if(prec.intersects(line5L) && prec.intersects(borderL)) {
-				player.setPlayerSpeedLeft(0);
-			} else if (prec.intersects(line5R) && prec.intersects(borderL)) {
-				player.setPlayerSpeedRight(0);
-			}
-		} else if (prec.intersects(borderL)) {  //Checkt Borders
-			player.setPlayerSpeedLeft(0);
-    	} else if (prec.intersects(borderR)) {  //Checkt Borders
-    		player.setPlayerSpeedDown(0);
-    	} else {
-			player.setPlayerSpeedLeft(7);
-			player.setPlayerSpeedRight(7);
-			player.setPlayerSpeedDown(15);
+		} else {
+			player.setPlayerSpeedDown(this.getPlayerSpeedDown());
 		} 
 	}
     
@@ -283,26 +248,14 @@ public class Board extends JFrame implements ActionListener {
     
     public void highscore() {
     	
-    	if(player.getyPos() == l.getY()) {	
+    	if(player.getyPos() == l.getY() 
+    			|| player.getyPos() == l2.getY() + 200 
+    			|| player.getyPos() == l3.getY() + 400 
+    			|| player.getyPos() == l4.getY() + 600 
+    			|| player.getyPos() == l5.getY() + 800) {	
     		setHighscore(getHighscore() + 1);
-    		System.out.println("highscore: " + highscore);
+    		System.out.println("Score: " + highscore);
     	}
-    	else if(player.getyPos() == l2.getY() + 200) {	
-    		setHighscore(getHighscore() + 1);
-    		System.out.println("highscore: " + highscore);
-    	} 
-    	else if(player.getyPos() == l3.getY() + 400) {	
-    		setHighscore(getHighscore() + 1);
-    		System.out.println("highscore: " + highscore);
-    	} 
-    	else if(player.getyPos() == l4.getY() + 600) {	
-    		setHighscore(getHighscore() + 1);
-    		System.out.println("highscore: " + highscore);
-    	} 
-    	else if(player.getyPos() == l5.getY() + 800) {	
-    		setHighscore(getHighscore() + 1);
-    		System.out.println("highscore: " + highscore);
-    	} 
     }
 	
     public void actionPerformed(ActionEvent e) { //Funktion wird alle 25ms aufgerufen
@@ -314,12 +267,14 @@ public class Board extends JFrame implements ActionListener {
         repaint(20, 0, 479, 1000);
         highscore();
         player.move();
+        if (player.getyPos() > 1000 || player.getyPos() < 0) {
+        	System.exit(0);
+        }
 //        repaint(); 
     }
 
 	public static void main(String[] args) {
 		new Board(); // Fügt alle Methoden aus Board() hinzu
-		new Score();
 	}
 
 	public int getHighscore() {
@@ -372,5 +327,21 @@ public class Board extends JFrame implements ActionListener {
 
 	public void setL5(Line l5) {
 		this.l5 = l5;
+	}
+
+	public int getPlayerSpeedDown() {
+		return playerSpeedDown;
+	}
+
+	public void setPlayerSpeedDown(int playerSpeedDown) {
+		this.playerSpeedDown = playerSpeedDown;
+	}
+
+	public int getPlayerSpeed() {
+		return playerSpeed;
+	}
+
+	public void setPlayerSpeed(int playerSpeed) {
+		this.playerSpeed = playerSpeed;
 	}
 }
