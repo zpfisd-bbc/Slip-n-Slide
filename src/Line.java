@@ -20,10 +20,10 @@ public class Line {
 	private Image borderL;
 	private Image borderR;
 	private static int linienAbstand = 100;
-	private static int x = 20;
+	private static int x = 7;
 	private int y = 200;
 	private int yMove;
-	private int scrollSpeed = 2; //Geschwindigkeit für Bewegen von Linien
+	private int scrollSpeed = 5; //Geschwindigkeit für Bewegen von Linien
 	
 	public Line() {
 		this.redoLine();
@@ -36,7 +36,7 @@ public class Line {
 		this.addImage();
 	}
 	
-	//Erstellt Image f�r Objekt
+	//Erstellt Image für Objekt
 	public void addImage() {
         ImageIcon lnL = new ImageIcon(this.getClass().getResource(pfad1));
         ImageIcon lnR = new ImageIcon(this.getClass().getResource(pfad2));
@@ -91,12 +91,11 @@ public class Line {
 			this.setPfad2("/images/0px.png");
 			break;
 		}
-		System.out.println(zufallsZahl);
 	}
 	
 	/**
 	 * 
-	 * Returns a rectangular shape with the bounds of the Image (Left bar)
+	 * Gibt den Rand der Linie 1 (linker Teil) zurück
 	 * 	
 	 */
     public Rectangle getBoundsL() {
@@ -105,12 +104,81 @@ public class Line {
 
 	/**
 	 * 
-	 * Returns a rectangular shape with the bounds of the Image (Right bar)
+	 * Gibt den Rand der Linie 1 (rechter Teil) zurück
 	 * 	
 	 */
     public Rectangle getBoundsR() {
-        return new Rectangle(10, this.getY(), imageR.getWidth(null), imageR.getHeight(null));
+        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY(), imageR.getWidth(null), imageR.getHeight(null));
     }
+	/**
+	 * 
+	 * Gibt den Rand der Linie 2 (linker Teil) zurück
+	 * 	
+	 */
+    public Rectangle getBoundsL2() {
+        return new Rectangle(10, this.getY() + 200, imageL.getWidth(null), imageL.getHeight(null));
+    }
+
+	/**
+	 * 
+	 * Gibt den Rand der Linie 2 (rechter Teil) zurück
+	 * 	
+	 */
+    public Rectangle getBoundsR2() {
+        return new Rectangle(this.getImageL().getWidth(null) + Line.getLinienAbstand() + 7, this.getY() + 200, imageR.getWidth(null), imageR.getHeight(null));
+    }
+	/**
+	 * 
+	 * Gibt den Rand der Linie 3 (linker Teil) zurück
+	 * 	
+	 */
+    public Rectangle getBoundsL3() {
+        return new Rectangle(10, this.getY() + 400, imageL.getWidth(null), imageL.getHeight(null));
+    }
+
+	/**
+	 * 
+	 * Gibt den Rand der Linie 3 (rechter Teil) zurück
+	 * 	
+	 */
+    public Rectangle getBoundsR3() {
+        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY() + 400, imageR.getWidth(null), imageR.getHeight(null));
+    }
+	/**
+	 * 
+	 * Gibt den Rand der Linie 4 (linker Teil) zurück
+	 * 	
+	 */
+    public Rectangle getBoundsL4() {
+        return new Rectangle(10, this.getY() + 600, imageL.getWidth(null), imageL.getHeight(null));
+    }
+
+	/**
+	 * 
+	 * Gibt den Rand der Linie 4 (rechter Teil) zurück
+	 * 	
+	 */
+    public Rectangle getBoundsR4() {
+        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY() + 600, imageR.getWidth(null), imageR.getHeight(null));
+    }
+	/**
+	 * 
+	 * Gibt den Rand der Linie 5 (linker Teil) zurück
+	 * 	
+	 */
+    public Rectangle getBoundsL5() {
+        return new Rectangle(10, this.getY() + 800, imageL.getWidth(null), imageL.getHeight(null));
+    }
+
+	/**
+	 * 
+	 * Gibt den Rand der Linie 5 (rechter Teil) zurück
+	 * 	
+	 */
+    public Rectangle getBoundsR5() {
+        return new Rectangle(this.getImageL().getWidth(null) +  Line.getLinienAbstand() + 7, this.getY() + 800, imageR.getWidth(null), imageR.getHeight(null));
+    }
+    
 
 	
 	//Getter und setter

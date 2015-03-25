@@ -15,16 +15,14 @@ public class Player {
 	private int xPos = 20;
 	private int yPos;
 	private Image image;
-	private String pfad = "/images/Triangle.png";
 	private int xMove;
 	private int yMove;
-	private int playerSpeed = 10;
-	private int playerSpeedDown = 1; //Gravity
+	private int playerSpeed = 10; //Links und Rechts Geschwindigkeit
+	private int playerSpeedDown = 10; //Gravity
 //  private boolean playerDead; TODO
 
 	public Player() {
-		this.setPfad("Triangle.png"); //Setzt den Pfad für das Bild
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/Triangle.png"));
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/Sprite3.png"));
 		this.setImage(ii.getImage()); //Wandelt das Bild in ein ImageIcon um
 	}
 	
@@ -129,14 +127,6 @@ public class Player {
 
 	public void setPlayerSpeedDown(int playerSpeedDown) {
 		this.playerSpeedDown = playerSpeedDown;
-	}
-
-	public String getPfad() {
-		return pfad;
-	}
-
-	public void setPfad(String pfad) {
-		this.pfad = pfad;
 	}
 
 	public Image getImage() {
