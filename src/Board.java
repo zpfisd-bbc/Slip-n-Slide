@@ -48,7 +48,7 @@ public class Board extends JFrame implements ActionListener {
 
 		// Initialisiert das JFrame
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/images/bg2.jpg"))));
-
+		setTitle("Slip 'n' Slide");
 		setSize(517, 1000); // Breite und Länge von Fenster
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -283,9 +283,11 @@ public class Board extends JFrame implements ActionListener {
     
     public void checkBorder() {
         if (player.getxPos() <= 20) {
-        	player.setPlayerSpeedLeft(0); 	
-        } else if (player.getxPos() >= 465) {
-        	player.setPlayerSpeedRight(0);
+
+        	player.setxPos(19);
+        } else if (player.getxPos() >= 468) {
+
+        	player.setxPos(467);
         } else {
         	player.setPlayerSpeedLeft(playerSpeed);
         	player.setPlayerSpeedRight(playerSpeed);
