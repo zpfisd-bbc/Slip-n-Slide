@@ -23,9 +23,7 @@ public class Board extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	// Variablen
-	private Player player;
-	private int playerSpeedDown; //Gravity
-	private int playerSpeed; //Geschwindigkeit nach Links & Rechts
+	Player player;
 	
 	private Line l = new Line();
 	private Line l2 = new Line();
@@ -39,10 +37,12 @@ public class Board extends JFrame implements ActionListener {
 	private boolean alreadyExecutedL3 = false;
 	private boolean alreadyExecutedL4 = false;
 	private boolean alreadyExecutedL5 = false;
+	private boolean firstRun = true;
 	
 	private int highscore = 0;
+	private int playerSpeedDown;
 	
-	public Board() {
+	public Board(int speedDown, int speed) {
 		
 
 		// Initialisiert das JFrame
@@ -58,17 +58,62 @@ public class Board extends JFrame implements ActionListener {
         player = new Player();
         Timer timer = new Timer(25, this); //25ms = 40fps
 		timer.start();
-
-		this.setPlayerSpeed(5);
-		this.setPlayerSpeedDown(5);
 		
+		//Setzt die Geschwindigkeiten für den Spieler
+		player.setPlayerSpeedDown(speedDown);
+		player.setPlayerSpeedLeft(speed);
+		player.setPlayerSpeedRight(speed);
+		
+		playerSpeedDown = speedDown;
 	}
 	
     public void paint(Graphics g) {
-    	
 
         super.paint(g);
         Graphics2D g1 = (Graphics2D)g;
+        
+		//Setzt den Spieler in die Lücke der Linie
+    	if (l.getZufallsZahl() == 1 && firstRun) {
+    		try {
+        		player.setxPos(48);
+        		firstRun = false;
+			} catch (NullPointerException e) {
+        		player.setxPos(48);
+        		firstRun = false;
+			}
+    	} else if (l.getZufallsZahl() == 2 && firstRun) {
+    		try {
+        		player.setxPos(140);
+        		firstRun = false;
+			} catch (NullPointerException e) {
+        		player.setxPos(140);
+        		firstRun = false;
+			}
+    	} else if (l.getZufallsZahl() == 3 && firstRun) {
+    		try {
+        		player.setxPos(240);
+        		firstRun = false;
+			} catch (NullPointerException e) {
+        		player.setxPos(240);
+        		firstRun = false;
+			}
+    	} else if (l.getZufallsZahl() == 4 && firstRun) {
+    		try {
+        		player.setxPos(340);
+        		firstRun = false;
+			} catch (NullPointerException e) {
+        		player.setxPos(340);
+        		firstRun = false;
+			}
+    	} else if (l.getZufallsZahl() == 5 && firstRun) {
+    		try {
+        		player.setxPos(440);
+        		firstRun = false;
+			} catch (NullPointerException e) {
+        		player.setxPos(440);
+        		firstRun = false;
+			}
+    	}
         
         		//Zeichnet Linie 1
         		while (l.getZufallsZahl() == l5.getZufallsZahl() && !alreadyExecutedL1) { //Wird nur einmal ausgeführt
@@ -230,7 +275,7 @@ public class Board extends JFrame implements ActionListener {
 			player.setyPos(l5.getY() + 800 - 30 - 2);
 			player.setPlayerSpeedDown(0);
 		} else {
-			player.setPlayerSpeedDown(this.getPlayerSpeedDown());
+			player.setPlayerSpeedDown(playerSpeedDown);
 		} 
 	}
     
@@ -247,7 +292,6 @@ public class Board extends JFrame implements ActionListener {
     }
     
     public void highscore() {
-    	
     	if(player.getyPos() == l.getY() 
     			|| player.getyPos() == l2.getY() + 200 
     			|| player.getyPos() == l3.getY() + 400 
@@ -270,12 +314,7 @@ public class Board extends JFrame implements ActionListener {
         if (player.getyPos() > 1000 || player.getyPos() < 0) {
         	System.exit(0);
         }
-//        repaint(); 
     }
-
-	public static void main(String[] args) {
-		new Board(); // Fügt alle Methoden aus Board() hinzu
-	}
 
 	public int getHighscore() {
 		return highscore;
@@ -283,65 +322,5 @@ public class Board extends JFrame implements ActionListener {
 
 	public void setHighscore(int highscore) {
 		this.highscore = highscore;
-	}
-
-	/**
-	 * @return the player
-	 */
-
-	public Line getL() {
-		return l;
-	}
-
-	public void setL(Line l) {
-		this.l = l;
-	}
-
-	public Line getL2() {
-		return l2;
-	}
-
-	public void setL2(Line l2) {
-		this.l2 = l2;
-	}
-
-	public Line getL3() {
-		return l3;
-	}
-
-	public void setL3(Line l3) {
-		this.l3 = l3;
-	}
-
-	public Line getL4() {
-		return l4;
-	}
-
-	public void setL4(Line l4) {
-		this.l4 = l4;
-	}
-
-	public Line getL5() {
-		return l5;
-	}
-
-	public void setL5(Line l5) {
-		this.l5 = l5;
-	}
-
-	public int getPlayerSpeedDown() {
-		return playerSpeedDown;
-	}
-
-	public void setPlayerSpeedDown(int playerSpeedDown) {
-		this.playerSpeedDown = playerSpeedDown;
-	}
-
-	public int getPlayerSpeed() {
-		return playerSpeed;
-	}
-
-	public void setPlayerSpeed(int playerSpeed) {
-		this.playerSpeed = playerSpeed;
 	}
 }

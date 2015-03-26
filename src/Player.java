@@ -20,7 +20,6 @@ public class Player {
 	private int playerSpeedLeft = 7; //Links und Rechts Geschwindigkeit
 	private int playerSpeedRight = 7;
 	private int playerSpeedDown = 10; //Gravity
-//  private boolean playerDead; TODO
 
 	public Player() {
 		ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/Triangle.png"));
