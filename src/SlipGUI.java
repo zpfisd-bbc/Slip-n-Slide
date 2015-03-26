@@ -18,7 +18,7 @@ public class SlipGUI extends JFrame {
 	JButton start = new JButton("START");
 	JButton store = new JButton("STORE");
 	JButton score = new JButton("SCORE");
-	JLabel menuLabel = new JLabel("<html><span style='font-size:20px'>Main Menu</span></html>", JLabel.CENTER);
+	JLabel menuLabel = new JLabel("<html><span style='font-size:20px'>Slip 'n' Slide</span></html>", JLabel.CENTER);
 	Player player = new Player();
 	
 	//Buttons vom Mode Menu

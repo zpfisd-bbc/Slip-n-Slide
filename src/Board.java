@@ -1,3 +1,4 @@
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -6,10 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.InputStream;
 
+import sun.audio.*;
+
+import javax.sound.sampled.AudioFileFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -60,7 +66,11 @@ public class Board extends JFrame implements ActionListener {
         Timer timer = new Timer(25, this); //25ms = 40fps
 		timer.start();
 		
-		//Setzt die Geschwindigkeiten für den Spieler
+		
+		//SpielSund
+		sound("sound/sound.wav");
+		
+			//Setzt die Geschwindigkeiten für den Spieler
 		player.setPlayerSpeedDown(speedDown);
 		player.setPlayerSpeedLeft(speed);
 		player.setPlayerSpeedRight(speed);
@@ -69,10 +79,30 @@ public class Board extends JFrame implements ActionListener {
 		playerSpeed = speed;
 	}
 	
+	//Sound
+	public void sound(String pfad) {
+		// Sound
+		InputStream sound;
+		sound = getClass().getClassLoader().getResourceAsStream(pfad);
+		try {
+			AudioStream audioStream;
+			audioStream = new AudioStream(sound);
+			AudioPlayer.player.start(audioStream);
+			
+		} catch (Exception e) { 
+			JOptionPane.showMessageDialog(null, e); 
+		}
+	}
+	
     public void paint(Graphics g) {
 
         super.paint(g);
         Graphics2D g1 = (Graphics2D)g;
+        
+		//Zeichnet Linie 1
+		while (l.getZufallsZahl() == l5.getZufallsZahl() && !alreadyExecutedL1) { //Wird nur einmal ausgeführt
+			l.redoLine();
+		}
         
 		//Setzt den Spieler in die Lücke der Linie
     	if (l.getZufallsZahl() == 1 && firstRun) {
@@ -116,11 +146,6 @@ public class Board extends JFrame implements ActionListener {
         		firstRun = false;
 			}
     	}
-        
-        		//Zeichnet Linie 1
-        		while (l.getZufallsZahl() == l5.getZufallsZahl() && !alreadyExecutedL1) { //Wird nur einmal ausgeführt
-        			l.redoLine();
-        		}
     			alreadyExecutedL1 = true;
                 if (l.getY() != -10) {
                 	g1.drawImage(l.getImageL(), Line.getX(), l.getY(), this);
@@ -313,6 +338,7 @@ public class Board extends JFrame implements ActionListener {
     			|| player.getyPos() == l4.getY() + 613 
     			|| player.getyPos() == l5.getY() + 813) {	
     		setHighscore(getHighscore() + 1);
+        	sound("sound/scorer.wav");
     		System.out.println("Score: " + highscore);    	}
     }
 	
@@ -327,7 +353,8 @@ public class Board extends JFrame implements ActionListener {
         highscore();
         checkBorder();
         if (player.getyPos() > 1000 || player.getyPos() < 0) {
-        	System.exit(0);
+        	sound("sound/death.wav");
+			JOptionPane.showMessageDialog(null, "Du bist Tot"); 
         }
     }
 
