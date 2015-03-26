@@ -279,6 +279,16 @@ public class Board extends JFrame implements ActionListener {
 		} 
 	}
     
+    public void checkBorder() {
+        if (player.getxPos() <= 20) {
+        	player.setPlayerSpeedLeft(0); 	
+        } else if (player.getxPos() >= 465) {
+        	player.setPlayerSpeedRight(0);
+        } else {
+        	player.setPlayerSpeedLeft(7);
+        	player.setPlayerSpeedRight(7);
+        }
+    }
     
     private class TAdapter extends KeyAdapter {
 
@@ -292,14 +302,14 @@ public class Board extends JFrame implements ActionListener {
     }
     
     public void highscore() {
-    	if(player.getyPos() == l.getY() 
-    			|| player.getyPos() == l2.getY() + 200 
-    			|| player.getyPos() == l3.getY() + 400 
-    			|| player.getyPos() == l4.getY() + 600 
-    			|| player.getyPos() == l5.getY() + 800) {	
+    	
+    	if(player.getyPos() == l.getY() + 13 
+    			|| player.getyPos() == l2.getY() + 213 
+    			|| player.getyPos() == l3.getY() + 413 
+    			|| player.getyPos() == l4.getY() + 613 
+    			|| player.getyPos() == l5.getY() + 813) {	
     		setHighscore(getHighscore() + 1);
-    		System.out.println("Score: " + highscore);
-    	}
+    		System.out.println("Score: " + highscore);    	}
     }
 	
     public void actionPerformed(ActionEvent e) { //Funktion wird alle 25ms aufgerufen
@@ -309,8 +319,9 @@ public class Board extends JFrame implements ActionListener {
         l4.move();
         l5.move();
         repaint(20, 0, 479, 1000);
-        highscore();
         player.move();
+        highscore();
+        checkBorder();
         if (player.getyPos() > 1000 || player.getyPos() < 0) {
         	System.exit(0);
         }
