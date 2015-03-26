@@ -41,6 +41,7 @@ public class Board extends JFrame implements ActionListener {
 	
 	private int highscore = 0;
 	private int playerSpeedDown;
+	private int playerSpeed;
 	
 	public Board(int speedDown, int speed) {
 		
@@ -65,6 +66,7 @@ public class Board extends JFrame implements ActionListener {
 		player.setPlayerSpeedRight(speed);
 		
 		playerSpeedDown = speedDown;
+		playerSpeed = speed;
 	}
 	
     public void paint(Graphics g) {
@@ -285,8 +287,8 @@ public class Board extends JFrame implements ActionListener {
         } else if (player.getxPos() >= 465) {
         	player.setPlayerSpeedRight(0);
         } else {
-        	player.setPlayerSpeedLeft(7);
-        	player.setPlayerSpeedRight(7);
+        	player.setPlayerSpeedLeft(playerSpeed);
+        	player.setPlayerSpeedRight(playerSpeed);
         }
     }
     
