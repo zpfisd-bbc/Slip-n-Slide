@@ -116,7 +116,7 @@ public class SlipGUI extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    		try {
 	    			frame.dispose();
-	    			new Board(0, 4);
+	    			new Board(1, 4);
 	    		} catch (NullPointerException e1) {
 	    		}
 	    	}
