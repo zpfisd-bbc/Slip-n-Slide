@@ -19,5 +19,4 @@ public class BoardTest {
 	public void test() {
 		fail("Not yet implemented");
 	}
-
 }
