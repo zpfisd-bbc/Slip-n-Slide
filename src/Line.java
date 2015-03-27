@@ -1,18 +1,28 @@
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.InputStream;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  * @author Dominic Pfister, ICT Berufsbildungscenter AG, dominic.pfister@bbcag.ch
  * @version 1.0
  */
 
+@SuppressWarnings("restriction")
 public class Line {
 	
 	//Variablen
+	private String ordner;
+	private String soundName = "images/" + ordner + "/" + ordner + ".wav";
+	
 	private int zufallsZahl;
+	private int zufallsSound;
 	private String pfad1; //Pfad für Linie 1
 	private String pfad2; //Pfad für Linie 2
 	private Image imageL;
@@ -25,6 +35,7 @@ public class Line {
 	private int yMove;
 	private int scrollSpeed = 5; //Geschwindigkeit für Bewegen von Linien
 	
+	
 	public Line() {
 		this.redoLine();
 	}
@@ -36,12 +47,27 @@ public class Line {
 		this.addImage();
 	}
 	
+	//Sound
+	public void sound(String pfad) {
+		// Sound
+		InputStream sound;
+		sound = getClass().getClassLoader().getResourceAsStream(pfad);
+		try {
+			AudioStream audioStream;
+			audioStream = new AudioStream(sound);
+			AudioPlayer.player.start(audioStream);
+			
+		} catch (Exception e) { 
+			JOptionPane.showMessageDialog(null, e); 
+		}
+	}
+	
 	//Erstellt Image für Objekt
 	public void addImage() {
         ImageIcon lnL = new ImageIcon(this.getClass().getResource(pfad1));
         ImageIcon lnR = new ImageIcon(this.getClass().getResource(pfad2));
-        ImageIcon borderL = new ImageIcon(this.getClass().getResource("/images/border_left.jpg"));
-        ImageIcon borderR = new ImageIcon(this.getClass().getResource("/images/border_right.jpg"));
+        ImageIcon borderL = new ImageIcon(this.getClass().getResource("/" + getOrdner() + "/border_left.jpg"));
+        ImageIcon borderR = new ImageIcon(this.getClass().getResource("/" + getOrdner() + "/border_right.jpg"));
 		this.setImageL(lnL.getImage());
 		this.setImageR(lnR.getImage());
 		this.setBorderL(borderL.getImage());
@@ -54,7 +80,7 @@ public class Line {
 	public void move() {
 		y += - scrollSpeed;
 	}
-	
+		
     /**
      * Selects a random number between 1 and "maxZahl"
      *
@@ -65,31 +91,68 @@ public class Line {
 		zufallsZahl = rz.nextInt(maxZahl) + 1;
 	}
 	
+	public void ordnerSelector () {
+		this.randomZahl(5);
+		
+			switch (zufallsZahl) {
+			case 1:
+				this.setOrdner("black");
+				this.setSoundName("sound/" + ordner + ".wav");
+				break;
+			case 2:
+				this.setOrdner("blue");
+				this.setSoundName("sound/" + ordner + ".wav");
+				break;
+			case 3:
+				this.setOrdner("brown");
+				this.setSoundName("sound/" + ordner + ".wav");
+				break;
+			case 4:
+				this.setOrdner("orange");
+				this.setSoundName("sound/" + ordner + ".wav");
+				break;
+			case 5:
+				this.setOrdner("violet");
+				this.setSoundName("sound/" + ordner + ".wav");
+				break;
+			default:
+				this.setOrdner("blue");
+				this.setSoundName("sound/" + ordner + ".wav");
+				break;
+			}
+			redoLine();
+		}
+	
     /**
      * Selects the path for images
      */
 	public void pathSelector() {
-		switch (zufallsZahl) {
-		case 1:
-			this.setPfad1("/images/0px.png");
-			this.setPfad2("/images/400px.jpg");
-			break;
-		case 2:
-			this.setPfad1("/images/100px.jpg");
-			this.setPfad2("/images/300px.jpg");
-			break;
-		case 3:
-			this.setPfad1("/images/200px.jpg");
-			this.setPfad2("/images/200px.jpg");
-			break;
-		case 4:
-			this.setPfad1("/images/300px.jpg");
-			this.setPfad2("/images/100px.jpg");
-			break;
-		case 5:
-			this.setPfad1("/images/400px.jpg");
-			this.setPfad2("/images/0px.png");
-			break;
+		if (ordner != null) {
+			switch (zufallsZahl) {
+			case 1:
+				this.setPfad1("/images/0px.png");
+				this.setPfad2("/" + this.getOrdner() + "/400px.jpg");
+				break;
+			case 2:
+				this.setPfad1("/" + this.getOrdner() + "/100px.jpg");
+				this.setPfad2("/" + this.getOrdner() + "/300px.jpg");
+				break;
+			case 3:
+				this.setPfad1("/" + this.getOrdner() + "/200px.jpg");
+				this.setPfad2("/" + this.getOrdner() + "/200px.jpg");
+				break;
+			case 4:
+				this.setPfad1("/" + this.getOrdner() + "/300px.jpg");
+				this.setPfad2("/" + this.getOrdner() + "/100px.jpg");
+				break;
+			case 5:
+				this.setPfad1("/" + this.getOrdner() + "/400px.jpg");
+				this.setPfad2("/images/0px.png");
+				break;
+			}
+		} else {
+			ordnerSelector();
+			setSoundName("sound/" + ordner + ".wav");
 		}
 	}
 	
@@ -224,6 +287,14 @@ public class Line {
 		this.zufallsZahl = zufallsZahl;
 	}
 	
+	public int getZufallsSound() {
+		return zufallsSound;
+	}
+
+	public void setZufallsSound(int zufallsSound) {
+		this.zufallsSound = zufallsSound;
+	}
+
 	public int getY() {
 		return y;
 	}
@@ -302,6 +373,22 @@ public class Line {
 
 	public static void setX(int x) {
 		Line.x = x;
+	}
+
+	public String getOrdner() {
+		return ordner;
+	}
+
+	public void setOrdner(String ordner) {
+		this.ordner = ordner;
+	}
+
+	public String getSoundName() {
+		return soundName;
+	}
+
+	public void setSoundName(String soundName) {
+		this.soundName = soundName;
 	}
 	
 	

@@ -53,7 +53,7 @@ public class Board extends JFrame implements ActionListener {
 		
 
 		// Initialisiert das JFrame
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/images/bg2.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/" + l.getOrdner() + "/bg2.jpg"))));
 		setTitle("Slip 'n' Slide");
 		setSize(517, 1000); // Breite und Länge von Fenster
 		setVisible(true);
@@ -64,11 +64,10 @@ public class Board extends JFrame implements ActionListener {
         setFocusable(true);
         player = new Player();
         Timer timer = new Timer(25, this); //25ms = 40fps
-		timer.start();
-		
+		timer.start();	
 		
 		//SpielSund
-		sound("sound/sound.wav");
+		sound(l.getSoundName());
 		
 			//Setzt die Geschwindigkeiten für den Spieler
 		player.setPlayerSpeedDown(speedDown);
@@ -94,7 +93,10 @@ public class Board extends JFrame implements ActionListener {
 		}
 	}
 	
+	
+	
     public void paint(Graphics g) {
+
 
         super.paint(g);
         Graphics2D g1 = (Graphics2D)g;
@@ -105,7 +107,7 @@ public class Board extends JFrame implements ActionListener {
 		}
         
 		//Setzt den Spieler in die Lücke der Linie
-    	if (l.getZufallsZahl() == 1 && firstRun) {
+		if (l.getZufallsZahl() == 1 && firstRun) {
     		try {
         		player.setxPos(48);
         		firstRun = false;
@@ -146,6 +148,12 @@ public class Board extends JFrame implements ActionListener {
         		firstRun = false;
 			}
     	}
+		
+	    	l2.setOrdner(l.getOrdner());
+	    	l3.setOrdner(l2.getOrdner());
+	    	l4.setOrdner(l3.getOrdner());
+	    	l5.setOrdner(l4.getOrdner());
+    	
     			alreadyExecutedL1 = true;
                 if (l.getY() != -10) {
                 	g1.drawImage(l.getImageL(), Line.getX(), l.getY(), this);
@@ -254,6 +262,7 @@ public class Board extends JFrame implements ActionListener {
             	}
                 
         //Zeichnet den Rand
+        
         g1.drawImage(border.getBorderL(), 4, 0, 16, 1000, this);
         g1.drawImage(border.getBorderL(), 499, 0, 15, 1000, this);
         
