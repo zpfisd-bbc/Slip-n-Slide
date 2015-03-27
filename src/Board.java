@@ -1,4 +1,3 @@
-import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -9,14 +8,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
 
-import sun.audio.*;
-
-import javax.sound.sampled.AudioFileFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  * @author Dominic Pfister, ICT Berufsbildungscenter AG, dominic.pfister@bbcag.ch
@@ -30,6 +29,9 @@ public class Board extends JFrame implements ActionListener {
 
 	// Variablen
 	Player player;
+	JLabel scoreLabel = new JLabel("<html><span style='font-size:20px'>Score: 0</span></html>", JLabel.CENTER);
+	
+	private String ordner;
 	
 	private Line l = new Line();
 	private Line l2 = new Line();
@@ -51,7 +53,9 @@ public class Board extends JFrame implements ActionListener {
 	
 	public Board(int speedDown, int speed) {
 		
-
+		//Erzeugt ein kleines Fenster für den Score
+		score();
+		
 		// Initialisiert das JFrame
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/" + l.getOrdner() + "/bg2.jpg"))));
 		setTitle("Slip 'n' Slide");
@@ -59,6 +63,7 @@ public class Board extends JFrame implements ActionListener {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+		setLocationRelativeTo(null);
 		
 		addKeyListener(new TAdapter());
         setFocusable(true);
@@ -76,6 +81,36 @@ public class Board extends JFrame implements ActionListener {
 		
 		playerSpeedDown = speedDown;
 		playerSpeed = speed;
+		
+		this.setOrdner(l.getOrdner());
+		l2.setOrdner(this.getOrdner());
+		l3.setOrdner(this.getOrdner());
+		l4.setOrdner(this.getOrdner());
+		l5.setOrdner(this.getOrdner());
+		
+		l2.redoLine();
+		l3.redoLine();
+		l4.redoLine();
+		l5.redoLine();
+		
+		l.setOrdner(ordner);
+		l.redoLine();
+		
+
+	}
+	
+	public void score() {
+		//JFrame für den Score
+		JFrame score = new JFrame();
+		
+		score.setTitle("Slip 'n' Slide");
+		score.setUndecorated(true);
+		score.setSize(120, 100); // Breite und Länge von Fenster
+		score.setVisible(true);
+		score.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		score.setResizable(false);
+		score.setLocation(1240, 50); //Erzeugt das Frame direkt neben dem Spiel Frame
+		score.add(scoreLabel);
 	}
 	
 	//Sound
@@ -96,8 +131,7 @@ public class Board extends JFrame implements ActionListener {
 	
 	
     public void paint(Graphics g) {
-
-
+		
         super.paint(g);
         Graphics2D g1 = (Graphics2D)g;
         
@@ -162,6 +196,8 @@ public class Board extends JFrame implements ActionListener {
                 else {
             		l = null;
             		l = new Line();
+            		l.setOrdner(this.getOrdner());
+            		l.redoLine();
             		l.setY(l.getY() + 800);
             		l.getBoundsL(); 
             		l.getBorderR();
@@ -184,6 +220,8 @@ public class Board extends JFrame implements ActionListener {
                 else {
             		l2 = null;
             		l2 = new Line();
+            		l2.setOrdner(this.getOrdner());
+            		l2.redoLine();
             		l2.setY(l2.getY() + 620);
             		l2.getBoundsL(); 
             		l2.getBorderR();
@@ -206,6 +244,8 @@ public class Board extends JFrame implements ActionListener {
                 else {
             		l3 = null;
             		l3 = new Line();
+            		l3.setOrdner(this.getOrdner());
+            		l3.redoLine();
             		l3.setY(l3.getY() + 420);
             		l3.getBoundsL(); 
             		l3.getBorderR();
@@ -229,6 +269,8 @@ public class Board extends JFrame implements ActionListener {
                 else {
             		l4 = null;
             		l4 = new Line();
+            		l4.setOrdner(this.getOrdner());
+            		l4.redoLine();
             		l4.setY(l.getY());
             		l4.getBoundsL(); 
             		l4.getBorderR();
@@ -251,6 +293,8 @@ public class Board extends JFrame implements ActionListener {
                 else {
             		l5 = null;
             		l5 = new Line();
+            		l5.setOrdner(this.getOrdner());
+            		l5.redoLine();
             		l5.setY(l5.getY() + 20);
             		l5.getBoundsL(); 
             		l5.getBorderR();
@@ -262,7 +306,6 @@ public class Board extends JFrame implements ActionListener {
             	}
                 
         //Zeichnet den Rand
-        
         g1.drawImage(border.getBorderL(), 4, 0, 16, 1000, this);
         g1.drawImage(border.getBorderL(), 499, 0, 15, 1000, this);
         
@@ -348,7 +391,8 @@ public class Board extends JFrame implements ActionListener {
     			|| player.getyPos() == l5.getY() + 813) {	
     		setHighscore(getHighscore() + 1);
         	sound("sound/scorer.wav");
-    		System.out.println("Score: " + highscore);    	}
+        	scoreLabel.setText("<html><span style='font-size:20px'>Score: " + highscore + "</span></html>");
+       	}
     }
 	
     public void actionPerformed(ActionEvent e) { //Funktion wird alle 25ms aufgerufen
@@ -363,7 +407,10 @@ public class Board extends JFrame implements ActionListener {
         checkBorder();
         if (player.getyPos() > 1000 || player.getyPos() < 0) {
         	sound("sound/death.wav");
-			JOptionPane.showMessageDialog(null, "Du bist Tot"); 
+        	dispose(); //Löscht Frame
+            ((Timer)e.getSource()).stop(); //Stoppt den Timer
+        	SlipGUI s = new SlipGUI();
+        	s.endScreen();
         }
     }
 
@@ -373,5 +420,13 @@ public class Board extends JFrame implements ActionListener {
 
 	public void setHighscore(int highscore) {
 		this.highscore = highscore;
+	}
+
+	public String getOrdner() {
+		return ordner;
+	}
+
+	public void setOrdner(String ordner) {
+		this.ordner = ordner;
 	}
 }

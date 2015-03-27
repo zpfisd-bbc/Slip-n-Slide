@@ -14,12 +14,12 @@ import sun.audio.AudioStream;
  * @version 1.0
  */
 
-@SuppressWarnings("restriction")
+
 public class Line {
 	
 	//Variablen
 	private String ordner;
-	private String soundName = "images/" + ordner + "/" + ordner + ".wav";
+	private String soundName;
 	
 	private int zufallsZahl;
 	private int zufallsSound;
@@ -37,6 +37,7 @@ public class Line {
 	
 	
 	public Line() {
+		this.ordnerSelector();
 		this.redoLine();
 	}
 	
@@ -66,12 +67,40 @@ public class Line {
 	public void addImage() {
         ImageIcon lnL = new ImageIcon(this.getClass().getResource(pfad1));
         ImageIcon lnR = new ImageIcon(this.getClass().getResource(pfad2));
-        ImageIcon borderL = new ImageIcon(this.getClass().getResource("/" + getOrdner() + "/border_left.jpg"));
-        ImageIcon borderR = new ImageIcon(this.getClass().getResource("/" + getOrdner() + "/border_right.jpg"));
+        if (ordner.equals(this.getSoundName())) {
+            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/brown/border_left.jpg"));
+            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/brown/border_right.jpg"));
+    		this.setBorderL(borderL.getImage());
+    		this.setBorderL(borderR.getImage());
+        } else if (ordner.equals("blue")) {
+            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/blue/border_left.jpg"));
+            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/blue/border_right.jpg"));
+    		this.setBorderL(borderL.getImage());
+    		this.setBorderL(borderR.getImage());
+        } else if (ordner.equals("black")) {
+            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/black/border_left.jpg"));
+            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/black/border_right.jpg"));
+    		this.setBorderL(borderL.getImage());
+    		this.setBorderL(borderR.getImage());
+        } else if (ordner.equals("orange")) {
+            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/orange/border_left.jpg"));
+            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/orange/border_right.jpg"));
+    		this.setBorderL(borderL.getImage());
+    		this.setBorderL(borderR.getImage());
+        } else if (ordner.equals("violet")){
+            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/violet/border_left.jpg"));
+            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/violet/border_right.jpg"));
+    		this.setBorderL(borderL.getImage());
+    		this.setBorderL(borderR.getImage());
+        } else {
+            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/blue/border_left.jpg"));
+            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/blue/border_right.jpg"));
+    		this.setBorderL(borderL.getImage());
+    		this.setBorderL(borderR.getImage());
+        }
 		this.setImageL(lnL.getImage());
 		this.setImageR(lnR.getImage());
-		this.setBorderL(borderL.getImage());
-		this.setBorderL(borderR.getImage());
+
 	}
 	
     /**
@@ -127,7 +156,6 @@ public class Line {
      * Selects the path for images
      */
 	public void pathSelector() {
-		if (ordner != null) {
 			switch (zufallsZahl) {
 			case 1:
 				this.setPfad1("/images/0px.png");
@@ -150,10 +178,6 @@ public class Line {
 				this.setPfad2("/images/0px.png");
 				break;
 			}
-		} else {
-			ordnerSelector();
-			setSoundName("sound/" + ordner + ".wav");
-		}
 	}
 	
 	/**
