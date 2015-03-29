@@ -160,7 +160,7 @@ public class SlipGUI extends JFrame {
 	    	@Override
 	    	public void actionPerformed(ActionEvent e) {
 	    		try {
-	    			endscreen.dispose();
+	    			endscreen.setVisible(false);
 	    			System.out.println("SPEED: " + getPlayerSpeed() + " DOWN: " + getPlayerSpeedDown());
 	    			new Board(15, 7);
 	    		} catch (NullPointerException e1) {

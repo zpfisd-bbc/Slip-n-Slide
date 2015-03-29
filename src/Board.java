@@ -46,7 +46,7 @@ public class Board extends JFrame implements ActionListener {
 	private boolean alreadyExecutedL4 = false;
 	private boolean alreadyExecutedL5 = false;
 	private boolean firstRun = true;
-	
+	private boolean SoundOff = false;
 	private int highscore = 0;
 	private int playerSpeedDown;
 	private int playerSpeed;
@@ -115,6 +115,7 @@ public class Board extends JFrame implements ActionListener {
 	
 	//Sound
 	public void sound(String pfad) {
+		
 		// Sound
 		InputStream sound;
 		sound = getClass().getClassLoader().getResourceAsStream(pfad);
@@ -122,7 +123,6 @@ public class Board extends JFrame implements ActionListener {
 			AudioStream audioStream;
 			audioStream = new AudioStream(sound);
 			AudioPlayer.player.start(audioStream);
-			
 		} catch (Exception e) { 
 			JOptionPane.showMessageDialog(null, e); 
 		}

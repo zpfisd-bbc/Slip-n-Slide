@@ -18,13 +18,14 @@ import sun.audio.AudioStream;
 public class Line {
 	
 	//Variablen
-	private String ordner;
-	private String soundName;
-	
+	private static String ordner;
+	private static String soundName;
 	private int zufallsZahl;
 	private int zufallsSound;
 	private String pfad1; //Pfad für Linie 1
 	private String pfad2; //Pfad für Linie 2
+	private String pfadBorderL; //Pfad für Border Links
+	private String pfadBorderR; //Pfad für Border Rechts
 	private Image imageL;
 	private Image imageR;
 	private Image borderL;
@@ -67,37 +68,10 @@ public class Line {
 	public void addImage() {
         ImageIcon lnL = new ImageIcon(this.getClass().getResource(pfad1));
         ImageIcon lnR = new ImageIcon(this.getClass().getResource(pfad2));
-        if (ordner.equals(this.getSoundName())) {
-            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/brown/border_left.jpg"));
-            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/brown/border_right.jpg"));
-    		this.setBorderL(borderL.getImage());
-    		this.setBorderL(borderR.getImage());
-        } else if (ordner.equals("blue")) {
-            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/blue/border_left.jpg"));
-            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/blue/border_right.jpg"));
-    		this.setBorderL(borderL.getImage());
-    		this.setBorderL(borderR.getImage());
-        } else if (ordner.equals("black")) {
-            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/black/border_left.jpg"));
-            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/black/border_right.jpg"));
-    		this.setBorderL(borderL.getImage());
-    		this.setBorderL(borderR.getImage());
-        } else if (ordner.equals("orange")) {
-            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/orange/border_left.jpg"));
-            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/orange/border_right.jpg"));
-    		this.setBorderL(borderL.getImage());
-    		this.setBorderL(borderR.getImage());
-        } else if (ordner.equals("violet")){
-            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/violet/border_left.jpg"));
-            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/violet/border_right.jpg"));
-    		this.setBorderL(borderL.getImage());
-    		this.setBorderL(borderR.getImage());
-        } else {
-            ImageIcon borderL = new ImageIcon(this.getClass().getResource("/blue/border_left.jpg"));
-            ImageIcon borderR = new ImageIcon(this.getClass().getResource("/blue/border_right.jpg"));
-    		this.setBorderL(borderL.getImage());
-    		this.setBorderL(borderR.getImage());
-        }
+        ImageIcon borderL = new ImageIcon(this.getClass().getResource(pfadBorderL));
+        ImageIcon borderR = new ImageIcon(this.getClass().getResource(pfadBorderR));
+        this.setBorderL(borderL.getImage());
+    	this.setBorderL(borderR.getImage());
 		this.setImageL(lnL.getImage());
 		this.setImageR(lnR.getImage());
 
@@ -121,7 +95,7 @@ public class Line {
 	}
 	
 	public void ordnerSelector () {
-		this.randomZahl(5);
+			this.randomZahl(5);
 		
 			switch (zufallsZahl) {
 			case 1:
@@ -160,21 +134,31 @@ public class Line {
 			case 1:
 				this.setPfad1("/images/0px.png");
 				this.setPfad2("/" + this.getOrdner() + "/400px.jpg");
+				this.setPfadBorderL("/" + this.getOrdner() + "/border_left.jpg");
+				this.setPfadBorderR("/" + this.getOrdner() + "/border_right.jpg");
 				break;
 			case 2:
 				this.setPfad1("/" + this.getOrdner() + "/100px.jpg");
 				this.setPfad2("/" + this.getOrdner() + "/300px.jpg");
+				this.setPfadBorderL("/" + this.getOrdner() + "/border_left.jpg");
+				this.setPfadBorderR("/" + this.getOrdner() + "/border_right.jpg");
 				break;
 			case 3:
 				this.setPfad1("/" + this.getOrdner() + "/200px.jpg");
 				this.setPfad2("/" + this.getOrdner() + "/200px.jpg");
+				this.setPfadBorderL("/" + this.getOrdner() + "/border_left.jpg");
+				this.setPfadBorderR("/" + this.getOrdner() + "/border_right.jpg");
 				break;
 			case 4:
 				this.setPfad1("/" + this.getOrdner() + "/300px.jpg");
 				this.setPfad2("/" + this.getOrdner() + "/100px.jpg");
+				this.setPfadBorderL("/" + this.getOrdner() + "/border_left.jpg");
+				this.setPfadBorderR("/" + this.getOrdner() + "/border_right.jpg");
 				break;
 			case 5:
 				this.setPfad1("/" + this.getOrdner() + "/400px.jpg");
+				this.setPfadBorderL("/" + this.getOrdner() + "/border_left.jpg");
+				this.setPfadBorderR("/" + this.getOrdner() + "/border_right.jpg");
 				this.setPfad2("/images/0px.png");
 				break;
 			}
@@ -301,6 +285,22 @@ public class Line {
 
 	public void setPfad2(String pfad2) {
 		this.pfad2 = pfad2;
+	}
+
+	public String getPfadBorderL() {
+		return pfadBorderL;
+	}
+
+	public void setPfadBorderL(String pfadBorderL) {
+		this.pfadBorderL = pfadBorderL;
+	}
+
+	public String getPfadBorderR() {
+		return pfadBorderR;
+	}
+
+	public void setPfadBorderR(String pfadBorderR) {
+		this.pfadBorderR = pfadBorderR;
 	}
 
 	public int getZufallsZahl() {
