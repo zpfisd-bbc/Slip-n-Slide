@@ -29,6 +29,8 @@ public class Board extends JFrame implements ActionListener {
 
 	// Variablen
 	Player player;
+	JFrame score = new JFrame();
+	AudioStream audioStream;
 	JLabel scoreLabel = new JLabel("<html><span style='font-size:20px'>Score: 0</span></html>", JLabel.CENTER);
 	
 	private String ordner;
@@ -46,7 +48,6 @@ public class Board extends JFrame implements ActionListener {
 	private boolean alreadyExecutedL4 = false;
 	private boolean alreadyExecutedL5 = false;
 	private boolean firstRun = true;
-	private boolean SoundOff = false;
 	private int highscore = 0;
 	private int playerSpeedDown;
 	private int playerSpeed;
@@ -101,8 +102,7 @@ public class Board extends JFrame implements ActionListener {
 	
 	public void score() {
 		//JFrame für den Score
-		JFrame score = new JFrame();
-		
+		score.setFocusable(false); //Kann nicht angewählt werden
 		score.setTitle("Slip 'n' Slide");
 		score.setUndecorated(true);
 		score.setSize(120, 100); // Breite und Länge von Fenster
@@ -115,12 +115,9 @@ public class Board extends JFrame implements ActionListener {
 	
 	//Sound
 	public void sound(String pfad) {
-		
-		// Sound
 		InputStream sound;
-		sound = getClass().getClassLoader().getResourceAsStream(pfad);
 		try {
-			AudioStream audioStream;
+			sound = getClass().getClassLoader().getResourceAsStream(pfad);
 			audioStream = new AudioStream(sound);
 			AudioPlayer.player.start(audioStream);
 		} catch (Exception e) { 

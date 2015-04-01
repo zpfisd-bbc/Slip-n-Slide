@@ -403,6 +403,7 @@ public class Line {
 		return ordner;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setOrdner(String ordner) {
 		this.ordner = ordner;
 	}
@@ -411,6 +412,7 @@ public class Line {
 		return soundName;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setSoundName(String soundName) {
 		this.soundName = soundName;
 	}

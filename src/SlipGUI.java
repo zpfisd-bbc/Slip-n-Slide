@@ -161,8 +161,8 @@ public class SlipGUI extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    		try {
 	    			endscreen.setVisible(false);
-	    			System.out.println("SPEED: " + getPlayerSpeed() + " DOWN: " + getPlayerSpeedDown());
-	    			new Board(15, 7);
+	    			Board b = new Board(15, 7);
+	    			b.score.dispose(); //Löscht das JFrame score
 	    		} catch (NullPointerException e1) {
 	    		}
 	    		
