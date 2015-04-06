@@ -2,6 +2,7 @@ package ch.berufsbildungscenter.SlipSlide;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -275,6 +276,7 @@ public class Board extends JFrame implements ActionListener {
         
         //Zeichnet den Spieler
         g1.drawImage(player.getImage(), player.getxPos(), player.getyPos(), this);
+        Toolkit.getDefaultToolkit().sync();
     }
     
     
